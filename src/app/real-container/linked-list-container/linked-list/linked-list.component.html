@@ -1,0 +1,35 @@
+<div class="main">
+  <div class="menu">
+    <div class="border">oi</div>
+  </div>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Node value"
+      [(ngModel)]="inputData"
+      name="input"
+      (keydown.enter)="onEnterPressed()"
+    />
+  </mat-form-field>
+  <button mat-stroked-button class="clear-button" (click)="clear()">
+    Clear
+  </button>
+  <div class="button-row">
+    <div class="flex-container">
+      <div *ngFor="let node of linkedList" class="button-container">
+        <app-node [node]="node"></app-node>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <table class="table">
+  <tr>
+    <th>Node data</th>
+  </tr>
+  <ng-container *ngFor="let node of linkedList; let e = even">
+    <tr [ngClass]="e ? 'even' : 'odd'">
+      <td>{{ node.data }}</td>
+    </tr>
+  </ng-container>
+</table> -->

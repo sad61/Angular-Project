@@ -1,0 +1,72 @@
+<main>
+  <div class="tchoco">
+    <p>{{ containerName }}</p>
+    <app-header></app-header>
+    <app-header></app-header>
+    <div *ngIf="containers$ | async as containers">
+      <app-container-list
+        [containers]="containers"
+        [xesque]="6"
+        (selectedContainer)="selectContainer($event)"
+      ></app-container-list>
+    </div>
+
+    <div *ngIf="hide == false">
+      Number of something:
+      <div>{{ object }} / {{ object | json }}</div>
+    </div>
+
+    <pre class="card card-block card-header">{{ checkModel | json }}</pre>
+
+    <div class="btn-group">
+      <label
+        class="btn btn-primary"
+        [(ngModel)]="checkModel.left"
+        btnCheckbox
+        tabindex="0"
+        role="button"
+        >Left</label
+      >
+      <label
+        class="btn btn-primary"
+        [(ngModel)]="checkModel.middle"
+        btnCheckbox
+        tabindex="0"
+        role="button"
+        >Middle</label
+      >
+      <label
+        class="btn btn-primary"
+        [(ngModel)]="checkModel.right"
+        btnCheckbox
+        tabindex="0"
+        role="button"
+        >Right</label
+      >
+    </div>
+
+    <pre class="card card-block card-header">{{ singleModel }}</pre>
+    <button
+      type="button"
+      class="btn btn-primary"
+      [(ngModel)]="singleModel"
+      btnCheckbox
+      btnCheckboxTrue="10"
+      btnCheckboxFalse="0"
+    >
+      Single Toggle
+    </button>
+
+    <div class="example-button-row">
+      <button mat-raised-button color="primary" (click)="toggle()">
+        Togles
+      </button>
+
+      <button class="btn btn-secondary" (click)="addContainer()">
+        add conntainer
+      </button>
+
+      <button class="btn btn-secondary" (click)="restore()">Restore</button>
+    </div>
+  </div>
+</main>

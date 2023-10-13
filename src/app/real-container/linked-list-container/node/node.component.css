@@ -1,0 +1,11 @@
+.node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 10px;
+  gap: 5px;
+}
+
+.content {
+  margin-bottom: 5px;
+}
