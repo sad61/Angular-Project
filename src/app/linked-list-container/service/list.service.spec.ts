@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RealContainerService } from './real-container.service';
+import { ListService } from './list.service';
 
-describe('RealContainerService', () => {
-  let service: RealContainerService;
+describe('ListService', () => {
+  let service: ListService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RealContainerService);
+    service = TestBed.inject(ListService);
   });
 
   it('should be created', () => {

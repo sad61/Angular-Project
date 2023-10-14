@@ -12,7 +12,6 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ContainerListComponent } from './containers/container-list/container-list.component';
 import { HeaderComponent } from './header/header.component';
 import { EmployeesComponent } from './employees/employees.component';
-import { RealContainerComponent } from './real-container/real-container.component';
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appconfig.service';
 import { RequestInterceptor } from './request.interceptor';
 import { AppNavComponent } from './app-nav/app-nav.component';
@@ -24,12 +23,13 @@ import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatInputModule } from '@angular/material/input';
-import { NodeComponent } from './real-container/linked-list-container/node/node.component';
-import { LinkedListComponent } from './real-container/linked-list-container/linked-list/linked-list.component';
-import { LinkedListContainerComponent } from './real-container/linked-list-container/linked-list-container.component';
+import { NodeComponent } from './linked-list-container/node/node.component';
+import { LinkedListComponent } from './linked-list-container/linked-list/linked-list.component';
+import { LinkedListContainerComponent } from './linked-list-container/linked-list-container.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { NodemenuComponent } from './real-container/linked-list-container/nodemenu/nodemenu.component';
+import { NodemenuComponent } from './linked-list-container/nodemenu/nodemenu.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,6 @@ import { MatSelectModule } from '@angular/material/select';
     ContainerListComponent,
     HeaderComponent,
     EmployeesComponent,
-    RealContainerComponent,
     AppNavComponent,
     NodeComponent,
     LinkedListComponent,
@@ -63,6 +62,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSlideToggleModule,
     DragDropModule,
     MatSelectModule,
+    MatMenuModule,
   ],
   providers: [
     { provide: APP_SERVICE_CONFIG, useValue: APP_CONFIG },

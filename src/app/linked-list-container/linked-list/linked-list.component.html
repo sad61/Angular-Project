@@ -1,0 +1,26 @@
+<div class="main">
+  <div class="menu">
+    <app-nodemenu></app-nodemenu>
+  </div>
+  <div class="header">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Node value"
+        [(ngModel)]="inputData"
+        name="input"
+        (keydown.enter)="onEnterPressed()"
+      />
+    </mat-form-field>
+    <button mat-stroked-button class="clear-button" (click)="clear()">
+      Clear
+    </button>
+  </div>
+  <div class="button-row">
+    <div class="flex-container">
+      <div *ngFor="let node of linkedList" class="button-container">
+        <app-node [node]="node"></app-node>
+      </div>
+    </div>
+  </div>
+</div>

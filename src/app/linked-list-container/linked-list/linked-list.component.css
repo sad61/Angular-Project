@@ -1,0 +1,46 @@
+.main {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 20%; /* Define two columns: one for the header and one for the menu */
+  grid-template-rows: auto 1fr; /* Automatically size the rows to content */
+  grid-template-areas:
+    "header menu"
+    "button-row menu";
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  grid-area: header;
+}
+
+.menu {
+  grid-area: menu;
+  position: absolute;
+  top: 0;
+  bottom: 0; /* Extend to the bottom of the grid */
+  width: 100%;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.flex-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.button-container {
+  display: flex;
+  margin: 10px;
+}
+
+.button-row {
+  grid-area: button-row;
+  display: flex;
+  flex-direction: column;
+}
+
+.clear-button {
+  margin: 10px;
+}

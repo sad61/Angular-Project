@@ -1,4 +1,13 @@
-import { Component, Input } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { NodemenuComponent } from '../nodemenu/nodemenu.component';
+import { ListService } from '../service/list.service';
 
 @Component({
   selector: 'app-node',
@@ -7,6 +16,12 @@ import { Component, Input } from '@angular/core';
 })
 export class NodeComponent {
   @Input() node!: Node;
+
+  constructor(private listService: ListService) {}
+
+  updateObservable(node: Node) {
+    this.listService.setNode(node);
+  }
 }
 
 export class Node {

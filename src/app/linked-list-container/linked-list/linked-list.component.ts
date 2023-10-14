@@ -1,8 +1,7 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { NodeComponent } from '../node/node.component';
 import { Node } from '../node/node.component';
-import { CdkDrag, CdkDragEnd } from '@angular/cdk/drag-drop';
-import { LinkedListServiceService } from '../service/linked-list-service.service';
+import { ListService } from '../service/list.service';
 
 @Component({
   selector: 'app-linked-list',
@@ -17,22 +16,25 @@ export class LinkedListComponent {
 
   linkedList: Node[] = [];
 
+  nodeElements: HTMLElement[] = [];
+
+  selectedNode!: Node; // To store the selected node data
+
   @ViewChild(NodeComponent) node!: NodeComponent;
 
   @ViewChild('arrow', { read: ElementRef }) arrow!: ElementRef;
 
   @ViewChild('nodeWrapper') nodeWrappers!: ElementRef[];
 
-  nodeElements: HTMLElement[] = [];
-
-  constructor(
-    private renderer: Renderer2,
-    private listService: LinkedListServiceService
-  ) {}
+  constructor(private renderer: Renderer2, private listService: ListService) {}
 
   clear() {
-    console.log('oi');
     this.linkedList = [];
+  }
+
+  showNodeInfo(node: any) {
+    // Set the selected node information to display in the menu
+    this.selectedNode = node;
   }
 
   onEnterPressed() {
