@@ -9,11 +9,27 @@ import { ListService } from '../service/list.service';
   styleUrls: ['./nodemenu.component.scss'],
 })
 export class NodemenuComponent {
-  node!: Node;
-
   constructor(private listService: ListService) {}
 
-  $node = this.listService.getNode().subscribe((node: Node) => {
-    console.log(node);
-  });
+  get node(): Node {
+    return this.listService.getNode();
+  }
+
+  changedData: any;
+  prevData: any = this.node?.getPrev()?.getData();
+  nextData: any = this.node?.getChild()?.getData();
+  changeData() {
+    this.node.setData(this.changedData);
+    this.changedData = '';
+  }
+
+  insertNext() {
+    this.listService.insertAfter(this.node, this.nextData);
+    this.nextData = '';
+  }
+
+  insertPrev() {
+    this.listService.insertBefore(this.node, this.prevData);
+    this.prevData = '';
+  }
 }

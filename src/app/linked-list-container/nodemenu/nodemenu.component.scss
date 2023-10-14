@@ -1,0 +1,59 @@
+.main-menu {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr 10% 1fr 1fr;
+  grid-template-areas:
+    "node"
+    "buttons"
+    "change-value"
+    "insert";
+  height: 100%;
+  width: 100%;
+}
+
+.example-large-box {
+  display: grid;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: column; /* Stack input rows vertically */
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column; /* Stack label and input vertically */
+  gap: 10px; /* Add space between input containers */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add box shadow on all sides */
+  border-radius: 8px; /* Add border radius for a softer look */
+  padding: 10px; /* Add internal padding for separation */
+}
+
+.inputs {
+  flex: 1;
+  width: 100%;
+}
+
+/* Style the labels */
+label {
+  font-weight: bold;
+  margin-bottom: 5px; /* Adicione espaço entre o rótulo e o campo de entrada */
+}
+
+.node {
+  grid-area: node;
+  border-radius: 8px;
+  font-size: 20px;
+  line-height: 1.4;
+  box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.2);
+}
+
+.buttons {
+  grid-area: buttons;
+  box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.2);
+}
+
+.change-value {
+  grid-area: change-value;
+  box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.2);
+}

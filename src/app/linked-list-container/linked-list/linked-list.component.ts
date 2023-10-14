@@ -6,15 +6,10 @@ import { ListService } from '../service/list.service';
 @Component({
   selector: 'app-linked-list',
   templateUrl: './linked-list.component.html',
-  styleUrls: ['./linked-list.component.css'],
+  styleUrls: ['./linked-list.component.scss'],
 })
 export class LinkedListComponent {
   inputData!: any;
-  head!: Node;
-  tail!: Node;
-  size!: number;
-
-  linkedList: Node[] = [];
 
   nodeElements: HTMLElement[] = [];
 
@@ -28,34 +23,15 @@ export class LinkedListComponent {
 
   constructor(private renderer: Renderer2, private listService: ListService) {}
 
+  linkedList = this.listService.linkedList;
+
   clear() {
     this.linkedList = [];
   }
 
-  showNodeInfo(node: any) {
-    // Set the selected node information to display in the menu
-    this.selectedNode = node;
-  }
-
   onEnterPressed() {
-    if (this.inputData) this.linkedList.push(this.append(this.inputData));
-    this.inputData = null;
-  }
-
-  append(data: any): Node {
-    const newNode = new Node(data);
-    if (!this.head) {
-      this.head = newNode;
-      this.tail = newNode;
-    } else {
-      let current = this.head;
-      while (current.child !== null) {
-        current = current.child;
-      }
-      current.child = newNode;
-      this.tail = newNode; // Update the tail to the new node
-    }
-    this.size++;
-    return newNode;
+    if (this.inputData)
+      this.linkedList.push(this.listService.append(this.inputData));
+    this.inputData = '';
   }
 }

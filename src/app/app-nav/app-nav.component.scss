@@ -1,11 +1,21 @@
 .sidenav-container {
+  display: grid;
+
   height: 100%;
+  width: 100%;
 }
 
 .sidenav {
   width: 200px;
 }
 
+.header {
+  grid-area: headera;
+}
+
+.content {
+  grid-area: contenta;
+}
 .sidenav .mat-toolbar {
   background: inherit;
 }

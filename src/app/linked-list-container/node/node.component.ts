@@ -12,7 +12,7 @@ import { ListService } from '../service/list.service';
 @Component({
   selector: 'app-node',
   templateUrl: './node.component.html',
-  styleUrls: ['./node.component.css'],
+  styleUrls: ['./node.component.scss'],
 })
 export class NodeComponent {
   @Input() node!: Node;
@@ -25,7 +25,7 @@ export class NodeComponent {
 }
 
 export class Node {
-  data!: any;
+  data: any;
   child: Node | null;
   prev: Node | null;
 

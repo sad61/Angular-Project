@@ -9,7 +9,7 @@
       [opened]="(isHandset$ | async) === false"
     >
       <mat-toolbar>Menu</mat-toolbar>
-      <mat-nav-list>
+      <mat-nav-list class="sidenav">
         <a mat-list-item [routerLink]="'./containers'">Containers</a>
         <a mat-list-item [routerLink]="'./employee'">Employee</a>
         <a mat-list-item [routerLink]="'./linked-list-container'"
@@ -17,17 +17,9 @@
         >
       </mat-nav-list>
     </mat-sidenav>
+
     <mat-sidenav-content>
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async"
-      >
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <mat-toolbar color="primary">
+      <mat-toolbar color="primary" class="header">
         <span>chama</span>
         <span class="spacer"></span>
         <section class="section">
@@ -150,7 +142,7 @@
         </section>
       </mat-toolbar>
       <!-- Add Content Here -->
-      <router-outlet></router-outlet>
+      <router-outlet class="content"></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </body>

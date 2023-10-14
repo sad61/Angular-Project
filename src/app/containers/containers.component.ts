@@ -16,7 +16,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 @Component({
   selector: 'app-containers',
   templateUrl: './containers.component.html',
-  styleUrls: ['./containers.component.css'],
+  styleUrls: ['./containers.component.scss'],
 })
 export class ContainersComponent implements OnInit {
   [x: string]: any;

@@ -30,6 +30,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NodemenuComponent } from './linked-list-container/nodemenu/nodemenu.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { MatMenuModule } from '@angular/material/menu';
     DragDropModule,
     MatSelectModule,
     MatMenuModule,
+    MatTabsModule,
   ],
   providers: [
     { provide: APP_SERVICE_CONFIG, useValue: APP_CONFIG },
