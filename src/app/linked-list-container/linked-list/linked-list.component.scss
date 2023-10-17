@@ -1,7 +1,7 @@
 .main {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 20%; /* Define two columns: one for the header and one for the menu */
+  grid-template-columns: 1fr 25%; /* Define two columns: one for the header and one for the menu */
   grid-template-rows: auto 1fr; /* Automatically size the rows to content */
   grid-template-areas:
     "header menu"

@@ -16,6 +16,7 @@ import { ListService } from '../service/list.service';
 })
 export class NodeComponent {
   @Input() node!: Node;
+  @Input() largeFont!: boolean;
 
   constructor(private listService: ListService) {}
 
@@ -51,11 +52,11 @@ export class Node {
     this.data = data;
   }
 
-  setChild(child: Node) {
+  setChild(child: Node | null) {
     this.child = child;
   }
 
-  setPrev(prev: Node) {
+  setPrev(prev: Node | null) {
     this.prev = prev;
   }
 }

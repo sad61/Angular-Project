@@ -1,4 +1,5 @@
 import { Component, HostBinding } from '@angular/core';
+import { ThemeService } from './app-nav/service/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +8,10 @@ import { Component, HostBinding } from '@angular/core';
 })
 export class AppComponent {
   title = 'angularapp';
-  @HostBinding('class') className = 'light-mode';
+  constructor(private themeService: ThemeService) {}
+  @HostBinding('class') className = this.themeService.getActiveTheme();
 
   toggleTheme(enable = true) {
-    if (enable) {
-      this.className = 'dark-mode';
-    } else {
-      this.className = 'light-mode';
-    }
+    this.className = enable ? 'dark-mode' : 'light-mode';
   }
 }

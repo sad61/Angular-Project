@@ -31,6 +31,10 @@ import { NodemenuComponent } from './linked-list-container/nodemenu/nodemenu.com
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
+import { BinaryTreeContainerComponent } from './binary-tree-container/binary-tree-container.component';
+import { BinaryTreeComponent } from './binary-tree-container/binary-tree/binary-tree.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TreeNodeComponent } from './binary-tree-container/tree-node/tree-node.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     LinkedListComponent,
     LinkedListContainerComponent,
     NodemenuComponent,
+    BinaryTreeContainerComponent,
+    BinaryTreeComponent,
+    TreeNodeComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +72,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSelectModule,
     MatMenuModule,
     MatTabsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     { provide: APP_SERVICE_CONFIG, useValue: APP_CONFIG },

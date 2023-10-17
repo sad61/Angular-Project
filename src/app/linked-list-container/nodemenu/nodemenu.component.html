@@ -1,69 +1,75 @@
-<div class="main-menu" *ngIf="node">
-  <div class="node">
-    <app-node [node]="node" class="node-node"></app-node>
+<div class="main-menu">
+  <div class="node-menu input-container" *ngIf="node">
+    <div class="nodes">
+      <ng-container *ngIf="node.getPrev()">
+        <app-node [node]="node.getPrev()!" class="node-prev"></app-node>
+      </ng-container>
+      <ng-container>
+        <app-node [node]="node" [largeFont]="true" color="node-node"></app-node>
+      </ng-container>
+      <ng-container *ngIf="node.getChild()">
+        <app-node [node]="node.getChild()!" class="node-child"></app-node>
+      </ng-container>
+    </div>
+    <div class="buttons">
+      <button mat-raised-button (click)="head()" color="primary">Head</button>
+      <button mat-raised-button (click)="tail()">Tail</button>
+      <button mat-raised-button color="warn" (click)="remove()">Remove</button>
+    </div>
   </div>
-  <div class="buttons">
-    <button mat-raised-button></button>
-  </div>
-  <div class="change-value">
+
+  <div class="node-menu" *ngIf="!node"></div>
+  <div mat-elevation-z2 class="change-value input-container">
     <mat-tab-group>
       <mat-tab label="Change">
-        <div class="example-large-box">
-          <div mat-elevation-z2 class="input-container">
-            <label for="prevInput">Change value:</label>
-            <mat-form-field>
-              <div class="inputs">
-                <input
-                  id="changeInput"
-                  matInput
-                  placeholder="Node value"
-                  [(ngModel)]="changedData"
-                  name="input"
-                  (keydown.enter)="changeData()"
-                />
-              </div>
-            </mat-form-field>
-          </div>
+        <div class="input-row">
+          <label for="changeInput">Change:</label>
+          <mat-form-field>
+            <div>
+              <input
+                id="changedInput"
+                matInput
+                placeholder="Node value"
+                [(ngModel)]="changedData"
+                name="input"
+                (keydown.enter)="changeData()"
+              />
+            </div>
+          </mat-form-field>
         </div>
       </mat-tab>
     </mat-tab-group>
   </div>
-  <div class="insert">
+  <div mat-elevation-z2 class="insert input-container">
     <mat-tab-group>
       <mat-tab label="Insert">
-        <div class="example-large-box">
-          <div class="input-row">
-            <div mat-elevation-z2 class="input-container">
-              <label for="prevInput">Previous:</label>
-              <mat-form-field>
-                <div class="prev-input">
-                  <input
-                    id="prevInput"
-                    matInput
-                    placeholder="Node value"
-                    [(ngModel)]="prevData"
-                    name="input"
-                    (keydown.enter)="insertPrev()"
-                  />
-                </div>
-              </mat-form-field>
+        <div class="input-row">
+          <label for="prevInput">Previous:</label>
+          <mat-form-field>
+            <div class="prev-input">
+              <input
+                id="prevInput"
+                matInput
+                placeholder="Node value"
+                [(ngModel)]="prevData"
+                name="input"
+                (keydown.enter)="insertPrev()"
+              />
             </div>
-            <div mat-elevation-z2 class="input-container">
-              <label for="nextInput">Next:</label>
-              <mat-form-field>
-                <div class="next-input">
-                  <input
-                    id="nextInput"
-                    matInput
-                    placeholder="Node value"
-                    [(ngModel)]="nextData"
-                    name="input"
-                    (keydown.enter)="insertNext()"
-                  />
-                </div>
-              </mat-form-field>
+          </mat-form-field>
+          <label for="nextInput">Next:</label>
+          <mat-form-field>
+            <div class="next-input">
+              <input
+                id="nextInput"
+                matInput
+                placeholder="Node value"
+                [(ngModel)]="nextData"
+                name="input"
+                (keydown.enter)="insertNext()"
+              />
             </div>
-          </div>
+          </mat-form-field>
         </div>
       </mat-tab>
     </mat-tab-group>

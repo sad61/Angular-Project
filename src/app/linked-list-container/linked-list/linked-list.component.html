@@ -12,7 +12,12 @@
         (keydown.enter)="onEnterPressed()"
       />
     </mat-form-field>
-    <button mat-stroked-button class="clear-button" (click)="clear()">
+    <button
+      mat-raised-button
+      color="warn"
+      class="clear-button"
+      (click)="clear()"
+    >
       Clear
     </button>
   </div>

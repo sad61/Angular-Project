@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'employee', component: EmployeesComponent },
   { path: 'containers', component: ContainersComponent },
   { path: 'linked-list-container', component: LinkedListContainerComponent },
-  { path: '', redirectTo: '/containers', pathMatch: 'full' },
+  { path: '', redirectTo: '/linked-list-container', pathMatch: 'full' },
   { path: '**', redirectTo: '/containers', pathMatch: 'full' },
 ];
 

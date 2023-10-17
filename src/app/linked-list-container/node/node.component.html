@@ -1,5 +1,7 @@
 <button mat-raised-button (click)="updateObservable(node)" class="node-button">
   <mat-icon>chevron_left</mat-icon>
-  <div class="content">{{ node.getData() }}</div>
+  <div [ngClass]="largeFont ? 'large-font' : 'default'">
+    {{ node.getData() }}
+  </div>
   <mat-icon iconPositionEnd>chevron_right</mat-icon>
 </button>

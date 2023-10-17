@@ -2,6 +2,8 @@ import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { NodeComponent } from '../node/node.component';
 import { Node } from '../node/node.component';
 import { ListService } from '../service/list.service';
+import { FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-linked-list',
@@ -9,29 +11,41 @@ import { ListService } from '../service/list.service';
   styleUrls: ['./linked-list.component.scss'],
 })
 export class LinkedListComponent {
-  inputData!: any;
+  inputData: any;
+  linkedList: Node[] | null;
+  private linkedListSubscription: Subscription;
 
-  nodeElements: HTMLElement[] = [];
+  constructor(private listService: ListService) {
+    this.inputData = '';
+    this.linkedList = null;
+    this.linkedListSubscription = this.listService
+      .getLinkedList$()
+      .subscribe((list) => {
+        this.linkedList = list;
+      });
+  }
 
-  selectedNode!: Node; // To store the selected node data
+  ngOnInit() {}
 
-  @ViewChild(NodeComponent) node!: NodeComponent;
-
-  @ViewChild('arrow', { read: ElementRef }) arrow!: ElementRef;
-
-  @ViewChild('nodeWrapper') nodeWrappers!: ElementRef[];
-
-  constructor(private renderer: Renderer2, private listService: ListService) {}
-
-  linkedList = this.listService.linkedList;
+  ngOnDestroy() {
+    this.linkedListSubscription.unsubscribe();
+  }
 
   clear() {
-    this.linkedList = [];
+    if (this.linkedList) {
+      for (const node of this.linkedList) {
+        node.setChild(null);
+        node.setPrev(null);
+      }
+      this.linkedList.length = 0;
+      this.listService.setNode(null);
+    }
   }
 
   onEnterPressed() {
-    if (this.inputData)
-      this.linkedList.push(this.listService.append(this.inputData));
-    this.inputData = '';
+    if (this.inputData) {
+      this.listService.append(this.inputData);
+      this.inputData = '';
+    }
   }
 }

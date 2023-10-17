@@ -1,6 +1,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use "@angular/material" as mat;
+@use "sass:map";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -11,15 +12,15 @@
 // hue. Available color palettes: https://material.io/design/color/
 
 // DARK
-$angularapp-primary-dark: mat.define-palette(mat.$purple-palette);
+$angularapp-primary-dark: mat.define-palette(mat.$deep-purple-palette, 400);
 $angularapp-accent-dark: mat.define-palette(
-  mat.$purple-palette,
+  mat.$deep-purple-palette,
   A200,
   A100,
   A400
 );
 
-$angularapp-warn-dark: mat.define-palette(mat.$purple-palette);
+$angularapp-warn-dark: mat.define-palette(mat.$red-palette);
 
 //  LIGHT
 $angularapp-primary-light: mat.define-palette(mat.$indigo-palette);
@@ -30,7 +31,7 @@ $angularapp-accent-light: mat.define-palette(
   A400
 );
 
-$angularapp-warn-light: mat.define-palette(mat.$indigo-palette);
+$angularapp-warn-light: mat.define-palette(mat.$red-palette);
 
 $dark-theme: mat.define-dark-theme(
   (
@@ -62,13 +63,10 @@ $light-theme: mat.define-light-theme(
     $color-background-palette,
     (
       background: $background-color,
-    )
-  );
-
-  $color-foreground-palette: map-merge(
-    $color-foreground-palette,
-    (
-      foreground: $foreground-color,
+      app-bar: $foreground-color,
+      card: $foreground-color,
+      dialog: $foreground-color,
+      selected-disabled-button: $foreground-color,
     )
   );
 
@@ -79,27 +77,17 @@ $light-theme: mat.define-light-theme(
     )
   );
 
-  $color-foreground-palette: map-merge(
-    $color-foreground-palette,
-    (
-      raised-button: $foreground-color,
-    )
-  );
-
   // Replace the background in the background palette.
   $background-palette: map-get($theme, background);
-  $foreground-palette: map-get($theme, foreground);
 
   $background-palette: map-merge(
     $background-palette,
     (
       background: $background-color,
-    )
-  );
-  $foreground-palette: map-merge(
-    $foreground-palette,
-    (
-      foreground: $foreground-color,
+      app-bar: $foreground-color,
+      card: $foreground-color,
+      dialog: $foreground-color,
+      selected-disabled-button: $foreground-color,
     )
   );
 
@@ -109,19 +97,16 @@ $light-theme: mat.define-light-theme(
       raised-button: $background-color,
     )
   );
-  $foreground-palette: map-merge(
-    $foreground-palette,
-    (
-      raised-button: $foreground-color,
-    )
-  );
 
   // Merge the changes into a new theme.
   $modified-theme-color: map-merge(
     $theme-color,
     (
       background: $color-background-palette,
-      foreground: $color-foreground-palette,
+      app-bar: $foreground-color,
+      card: $foreground-color,
+      dialog: $foreground-color,
+      selected-disabled-button: $foreground-color,
     )
   );
   $modified-theme: map-merge(
@@ -134,16 +119,18 @@ $light-theme: mat.define-light-theme(
     $modified-theme,
     (
       background: $background-palette,
-      foreground: $foreground-palette,
+      app-bar: $foreground-color,
+      card: $foreground-color,
+      dialog: $foreground-color,
+      selected-disabled-button: $foreground-color,
     )
   );
 
   @return $modified-theme;
 }
 
-$dark-theme: modify-background($dark-theme, #333333, #000000);
+$dark-theme: modify-background($dark-theme, #393939, #444444);
 
-$side-nav-theme: $dark-theme;
 .dark-mode {
   @include mat.all-component-themes($dark-theme);
 }

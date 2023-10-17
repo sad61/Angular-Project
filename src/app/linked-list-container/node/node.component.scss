@@ -1,3 +1,17 @@
-.content {
-  margin-bottom: 5px;
+.default {
+  max-width: 50px;
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis;
+  /* Display ellipsis when text overflows */
+}
+
+.large-font {
+  max-width: 50px;
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis;
+  font-size: 20px;
+  font-weight: bold;
+  /* Display ellipsis when text overflows */
 }

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ThemeService {
-  private activeTheme: string = 'deeppurple-amber';
+  private activeTheme: string = 'dark-mode';
 
   getActiveTheme(): string {
     return this.activeTheme;
@@ -12,6 +12,5 @@ export class ThemeService {
 
   setActiveTheme(theme: string): void {
     this.activeTheme = theme;
-    document.body.setAttribute('class', theme); // Apply the theme to the body or a root element
   }
 }

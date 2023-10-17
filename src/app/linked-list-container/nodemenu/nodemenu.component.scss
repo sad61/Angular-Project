@@ -1,59 +1,72 @@
 .main-menu {
   position: relative;
   display: grid;
-  grid-template-rows: 1fr 10% 1fr 1fr;
+  grid-template-rows: 1fr 25% 1fr;
   grid-template-areas:
     "node"
-    "buttons"
     "change-value"
     "insert";
   height: 100%;
   width: 100%;
-}
-
-.example-large-box {
-  display: grid;
+  overflow: hidden;
 }
 
 .input-row {
-  display: flex;
-  flex-direction: column; /* Stack input rows vertically */
-}
-
-.input-container {
   display: flex;
   flex-direction: column; /* Stack label and input vertically */
   gap: 10px; /* Add space between input containers */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add box shadow on all sides */
   border-radius: 8px; /* Add border radius for a softer look */
-  padding: 10px; /* Add internal padding for separation */
+  padding: 10px; /* Add internal padding for separation */ /* Stack input rows vertically */
 }
 
-.inputs {
-  flex: 1;
-  width: 100%;
-}
-
-/* Style the labels */
 label {
   font-weight: bold;
   margin-bottom: 5px; /* Adicione espaço entre o rótulo e o campo de entrada */
 }
 
-.node {
-  grid-area: node;
-  border-radius: 8px;
-  font-size: 20px;
-  line-height: 1.4;
-  box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.2);
+.node-menu {
+  display: grid;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  overflow: hidden;
+}
+
+.nodes {
+  display: flex;
+  justify-content: center; /* Center vertically */
+  flex-direction: row; /* Display nodes horizontally in a line */
+  align-items: center; /* Center horizontally */
+  margin-top: 37%;
 }
 
 .buttons {
-  grid-area: buttons;
-  box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-top: 25%; /* Adjust the spacing between nodes and buttons */
+}
+
+app-node {
+  margin: 7px;
 }
 
 .change-value {
   grid-area: change-value;
-  box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column; /* Stack label and input vertically */
+  gap: 10px; /* Add space between input containers */
+
+  border-radius: 8px; /* Add border radius for a softer look */
+}
+
+.input-container,
+.change-value,
+.buttons {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+mat-tab-group {
+  font-weight: bold;
 }

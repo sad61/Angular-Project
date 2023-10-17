@@ -1,0 +1,16 @@
+<div class="main">
+  <div class="menu">
+    <app-nodemenu></app-nodemenu>
+  </div>
+  <div class="header">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Node value"
+        [(ngModel)]="rootData"
+        name="input"
+        (keydown.enter)="addRoot()"
+      />
+    </mat-form-field>
+  </div>
+</div>
