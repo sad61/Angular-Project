@@ -1,0 +1,40 @@
+<div class="main-menu">
+  <div class="node-menu" *ngIf="node">
+    <div class="nodes" appDragScroll>
+      <ng-container class="nodes-drawn" *ngIf="node">
+        <app-tree-node
+          [mainNode]="true"
+          [node]="node.getAncestor() || node"
+        ></app-tree-node>
+      </ng-container>
+    </div>
+  </div>
+  <div class="node-menu" *ngIf="!node"></div>
+  <div mat-elevation-z2 class="buttons">
+    <button mat-raised-button color="accent" (click)="root()">Root</button>
+    <button mat-raised-button (click)="ancestor()" color="primary">
+      ancestor
+    </button>
+  </div>
+  <div class="add-child">
+    <mat-tab-group>
+      <mat-tab label="Add child">
+        <div class="input-row">
+          <label for="Child">Child:</label>
+          <mat-form-field>
+            <div>
+              <input
+                id="childInput"
+                matInput
+                placeholder="Node value"
+                [(ngModel)]="childData"
+                name="input"
+                (keydown.enter)="addChild()"
+              />
+            </div>
+          </mat-form-field>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

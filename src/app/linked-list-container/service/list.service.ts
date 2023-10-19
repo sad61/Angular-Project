@@ -27,6 +27,12 @@ export class ListService {
     return this.linkedList$;
   }
 
+  clear() {
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+  }
+
   append(data: any): Node {
     const newNode = new Node(data);
 

@@ -18,43 +18,35 @@ import { ThemeService } from 'src/app/app-nav/service/theme.service';
 })
 export class NodemenuComponent implements OnInit, OnDestroy {
   @Input() node: Node | null;
-  @Input() linkedList: Node[] | null;
+
   changedData: any;
   prevData: any;
   nextData: any;
 
   private nodeSubscription!: Subscription;
-  private linkedListSubscription!: Subscription;
 
   constructor(
     private listService: ListService,
     private themeService: ThemeService
   ) {
     this.node = null;
-    this.linkedList = null;
+
     this.changedData = '';
     this.prevData = null;
     this.nextData = null;
   }
 
   ngOnInit() {
-    this.themeService.getActiveTheme();
     this.nodeSubscription = this.listService.getNode$().subscribe((node) => {
       this.node = node;
       this.prevData = this.node?.getPrev()?.getData();
       this.nextData = this.node?.getChild()?.getData();
     });
-
-    this.linkedListSubscription = this.listService
-      .getLinkedList$()
-      .subscribe((list) => {
-        this.linkedList = list;
-      });
   }
 
   ngOnDestroy() {
     this.nodeSubscription.unsubscribe();
-    this.linkedListSubscription.unsubscribe();
+    this.node = null;
   }
 
   head() {

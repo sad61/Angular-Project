@@ -4,6 +4,7 @@ import { Node } from '../node/node.component';
 import { ListService } from '../service/list.service';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-linked-list',
@@ -13,9 +14,12 @@ import { Subscription } from 'rxjs';
 export class LinkedListComponent {
   inputData: any;
   linkedList: Node[] | null;
+  searchData: any;
+  isResolving: boolean = false;
+
   private linkedListSubscription: Subscription;
 
-  constructor(private listService: ListService) {
+  constructor(private listService: ListService, private snackBar: MatSnackBar) {
     this.inputData = '';
     this.linkedList = null;
     this.linkedListSubscription = this.listService
@@ -29,6 +33,7 @@ export class LinkedListComponent {
 
   ngOnDestroy() {
     this.linkedListSubscription.unsubscribe();
+    this.clear();
   }
 
   clear() {
@@ -37,8 +42,9 @@ export class LinkedListComponent {
         node.setChild(null);
         node.setPrev(null);
       }
-      this.linkedList.length = 0;
+      this.linkedList = null;
       this.listService.setNode(null);
+      this.listService.clear();
     }
   }
 
@@ -47,5 +53,42 @@ export class LinkedListComponent {
       this.listService.append(this.inputData);
       this.inputData = '';
     }
+  }
+
+  async searchNode() {
+    if (this.isResolving) {
+      this.snackBar.open(`Aguarde a procura terminar.`, 'Dismiss');
+      return;
+    }
+    if (this.searchData) {
+      this.isResolving = true;
+
+      let data = this.searchData;
+      this.searchData = '';
+
+      let index = 0;
+      let currentNode = this.listService.head;
+      let flag = false;
+
+      while (currentNode) {
+        this.listService.setNode(currentNode);
+        if (currentNode.getData() === data) {
+          flag = true;
+          this.snackBar.open(
+            `Node '${data}' encontrado no index: ${index}.`,
+            'Dismiss'
+          );
+          break;
+        }
+        await new Promise((resolve) => setTimeout(resolve, 250));
+        currentNode = currentNode.getChild();
+        index++;
+      }
+
+      if (!flag) {
+        this.snackBar.open(`Node não encontrado.`, 'Dismiss');
+      }
+    }
+    this.isResolving = false;
   }
 }

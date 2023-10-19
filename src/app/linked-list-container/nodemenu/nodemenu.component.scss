@@ -22,21 +22,21 @@
 
 label {
   font-weight: bold;
-  margin-bottom: 5px; /* Adicione espaço entre o rótulo e o campo de entrada */
+  margin-bottom: 5px;
 }
 
 .node-menu {
-  display: grid;
+  grid-area: node;
   flex-direction: column;
-  align-items: center; /* Center horizontally */
+  align-items: center;
   overflow: hidden;
 }
 
 .nodes {
   display: flex;
-  justify-content: center; /* Center vertically */
-  flex-direction: row; /* Display nodes horizontally in a line */
-  align-items: center; /* Center horizontally */
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
   margin-top: 37%;
 }
 
@@ -44,7 +44,7 @@ label {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
-  margin-top: 25%; /* Adjust the spacing between nodes and buttons */
+  margin-top: 25%;
 }
 
 app-node {
@@ -54,10 +54,14 @@ app-node {
 .change-value {
   grid-area: change-value;
   display: flex;
-  flex-direction: column; /* Stack label and input vertically */
-  gap: 10px; /* Add space between input containers */
+  flex-direction: column;
+  gap: 10px;
 
-  border-radius: 8px; /* Add border radius for a softer look */
+  border-radius: 8px;
+}
+
+.insert {
+  grid-area: insert;
 }
 
 .input-container,
@@ -65,8 +69,4 @@ app-node {
 .buttons {
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-}
-
-mat-tab-group {
-  font-weight: bold;
 }

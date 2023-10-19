@@ -23,6 +23,8 @@ export class NodeComponent {
   updateObservable(node: Node) {
     this.listService.setNode(node);
   }
+
+  ngOnDestroy() {}
 }
 
 export class Node {

@@ -23,7 +23,7 @@ $angularapp-accent-dark: mat.define-palette(
 $angularapp-warn-dark: mat.define-palette(mat.$red-palette);
 
 //  LIGHT
-$angularapp-primary-light: mat.define-palette(mat.$indigo-palette);
+$angularapp-primary-light: mat.define-palette(mat.$indigo-palette, 600);
 $angularapp-accent-light: mat.define-palette(
   mat.$indigo-palette,
   A200,
@@ -42,6 +42,10 @@ $dark-theme: mat.define-dark-theme(
     ),
   )
 );
+
+mat-tab-group {
+  font-weight: bold;
+}
 
 $light-theme: mat.define-light-theme(
   (

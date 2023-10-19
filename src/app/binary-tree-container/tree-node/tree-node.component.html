@@ -1,1 +1,17 @@
-<p>tree-node works!</p>
+<div class="tree-node">
+  <button
+    mat-fab
+    [color]="node === selectedNode ? 'warn' : 'primary'"
+    (click)="updateNode()"
+    class="node-button"
+  >
+    <div class="content">{{ node.data }}</div>
+  </button>
+  <div class="children" *ngIf="hasChildren()">
+    <app-tree-node
+      [mainNode]="false"
+      *ngFor="let child of node?.children"
+      [node]="child"
+    ></app-tree-node>
+  </div>
+</div>

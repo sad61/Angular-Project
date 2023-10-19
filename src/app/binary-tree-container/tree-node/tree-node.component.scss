@@ -1,0 +1,22 @@
+.tree-node {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: auto auto;
+  align-items: center;
+}
+
+.node-button {
+  margin: 10px;
+}
+
+.content {
+  max-width: 50px;
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis;
+}
+
+.clicked-node {
+  background-color: red;
+}

@@ -3,23 +3,59 @@
     <app-nodemenu></app-nodemenu>
   </div>
   <div class="header">
-    <mat-form-field>
-      <input
-        matInput
-        placeholder="Node value"
-        [(ngModel)]="inputData"
-        name="input"
-        (keydown.enter)="onEnterPressed()"
-      />
-    </mat-form-field>
-    <button
-      mat-raised-button
-      color="warn"
-      class="clear-button"
-      (click)="clear()"
-    >
-      Clear
-    </button>
+    <div class="header-content">
+      <div mat-elevation-z2 class="input-div">
+        <mat-tab-group>
+          <mat-tab label="Input node">
+            <div class="input-row">
+              <label for="changeInput">Input:</label>
+              <mat-form-field>
+                <div>
+                  <input
+                    id="changedInput"
+                    matInput
+                    placeholder="Node value"
+                    [(ngModel)]="inputData"
+                    name="input"
+                    (keydown.enter)="onEnterPressed()"
+                  />
+                </div>
+              </mat-form-field>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+      <div class="search-div">
+        <mat-tab-group>
+          <mat-tab label="Search node">
+            <div class="input-row">
+              <label for="changeInput">Search:</label>
+              <mat-form-field>
+                <div>
+                  <input
+                    id="searchInput"
+                    matInput
+                    placeholder="Node value"
+                    [(ngModel)]="searchData"
+                    name="input"
+                    (keydown.enter)="searchNode()"
+                  />
+                </div>
+              </mat-form-field>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+
+      <button
+        mat-raised-button
+        color="warn"
+        class="clear-button"
+        (click)="clear()"
+      >
+        Clear
+      </button>
+    </div>
   </div>
   <div class="button-row">
     <div class="flex-container">

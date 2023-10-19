@@ -1,16 +1,77 @@
 <div class="main">
   <div class="menu">
-    <app-nodemenu></app-nodemenu>
+    <app-binary-tree-menu></app-binary-tree-menu>
   </div>
-  <div class="header">
-    <mat-form-field>
-      <input
-        matInput
-        placeholder="Node value"
-        [(ngModel)]="rootData"
-        name="input"
-        (keydown.enter)="addRoot()"
-      />
-    </mat-form-field>
+  <div class="header-tree">
+    <div class="content-root">
+      <mat-tab-group>
+        <mat-tab label="Main Root">
+          <div class="input-row">
+            <label for="Root">Root:</label>
+            <mat-form-field>
+              <div>
+                <input
+                  id="rootInput"
+                  matInput
+                  placeholder="Node value"
+                  [(ngModel)]="rootData"
+                  name="input"
+                  (keydown.enter)="addRoot()"
+                />
+              </div>
+            </mat-form-field>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <div class="content-root">
+      <mat-tab-group>
+        <mat-tab label="Search node">
+          <div class="input-row">
+            <label for="Search ">Search:</label>
+            <mat-form-field>
+              <div>
+                <input
+                  id="rootInput"
+                  matInput
+                  placeholder="Node value"
+                  [(ngModel)]="searchData"
+                  name="input"
+                  (keydown.enter)="searchNode()"
+                />
+              </div>
+            </mat-form-field>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <div class="content-root">
+      <mat-tab-group>
+        <mat-tab label="Search delay">
+          <div class="input-row">
+            <label for="Root">Delay:</label>
+            <mat-form-field>
+              <div>
+                <input
+                  id="rootInput"
+                  matInput
+                  placeholder="Delay Ex: 1000 = 1s"
+                  [(ngModel)]="delay"
+                  name="input"
+                />
+              </div>
+            </mat-form-field>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <div class="clear-tree-button">
+      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+    </div>
+  </div>
+  <div class="tree">
+    <div class="tree-container" *ngIf="root">
+      <app-tree-node [node]="root"></app-tree-node>
+    </div>
   </div>
 </div>

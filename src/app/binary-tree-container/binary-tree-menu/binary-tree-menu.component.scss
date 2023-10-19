@@ -1,0 +1,69 @@
+.main-menu {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1.5fr 0.1fr 1fr;
+  grid-template-areas:
+    "node"
+    "buttons"
+    "change-value";
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: column; /* Stack label and input vertically */
+  gap: 10px; /* Add space between input containers */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add box shadow on all sides */
+  border-radius: 8px; /* Add border radius for a softer look */
+  padding: 10px; /* Add internal padding for separation */ /* Stack input rows vertically */
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px; /* Adicione espaço entre o rótulo e o campo de entrada */
+}
+
+.node-menu {
+  grid-area: node;
+
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  overflow: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
+.nodes {
+  display: flex;
+  grid-template-areas: "nodes-drawn" "buttons";
+  justify-content: flex-start; /* Center vertically */
+  flex-direction: row; /* Display nodes horizontally in a line */
+  align-items: center; /* Center horizontally */
+  height: 100%;
+}
+
+.buttons {
+  display: flex;
+  grid-area: buttons;
+  width: 100%;
+  justify-content: space-evenly;
+  grid-area: buttons;
+}
+
+.change-value {
+  grid-area: change-value;
+  display: flex;
+  flex-direction: column; /* Stack label and input vertically */
+  gap: 10px; /* Add space between input containers */
+
+  border-radius: 8px; /* Add border radius for a softer look */
+}
+
+mat-tab-group {
+  font-weight: bold;
+}

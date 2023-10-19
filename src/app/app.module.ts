@@ -35,6 +35,9 @@ import { BinaryTreeContainerComponent } from './binary-tree-container/binary-tre
 import { BinaryTreeComponent } from './binary-tree-container/binary-tree/binary-tree.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TreeNodeComponent } from './binary-tree-container/tree-node/tree-node.component';
+import { BinaryTreeMenuComponent } from './binary-tree-container/binary-tree-menu/binary-tree-menu.component';
+import { DragScrollDirective } from './binary-tree-container/drag-scroll.directive';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,8 @@ import { TreeNodeComponent } from './binary-tree-container/tree-node/tree-node.c
     BinaryTreeContainerComponent,
     BinaryTreeComponent,
     TreeNodeComponent,
+    BinaryTreeMenuComponent,
+    DragScrollDirective,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +78,7 @@ import { TreeNodeComponent } from './binary-tree-container/tree-node/tree-node.c
     MatMenuModule,
     MatTabsModule,
     ReactiveFormsModule,
+    MatSnackBarModule,
   ],
   providers: [
     { provide: APP_SERVICE_CONFIG, useValue: APP_CONFIG },
