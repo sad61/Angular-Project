@@ -13,23 +13,13 @@
 
 // DARK
 $angularapp-primary-dark: mat.define-palette(mat.$deep-purple-palette, 400);
-$angularapp-accent-dark: mat.define-palette(
-  mat.$deep-purple-palette,
-  A200,
-  A100,
-  A400
-);
+$angularapp-accent-dark: mat.define-palette(mat.$grey-palette, 700);
 
 $angularapp-warn-dark: mat.define-palette(mat.$red-palette);
 
 //  LIGHT
 $angularapp-primary-light: mat.define-palette(mat.$indigo-palette, 600);
-$angularapp-accent-light: mat.define-palette(
-  mat.$indigo-palette,
-  A200,
-  A100,
-  A400
-);
+$angularapp-accent-light: mat.define-palette(mat.$grey-palette, 50);
 
 $angularapp-warn-light: mat.define-palette(mat.$red-palette);
 

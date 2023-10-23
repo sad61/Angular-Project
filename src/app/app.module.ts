@@ -5,13 +5,11 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ContainersComponent } from './containers/containers.component';
+
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
-import { ContainerListComponent } from './containers/container-list/container-list.component';
-import { HeaderComponent } from './header/header.component';
-import { EmployeesComponent } from './employees/employees.component';
+
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appconfig.service';
 import { RequestInterceptor } from './request.interceptor';
 import { AppNavComponent } from './app-nav/app-nav.component';
@@ -42,10 +40,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
-    ContainersComponent,
-    ContainerListComponent,
-    HeaderComponent,
-    EmployeesComponent,
     AppNavComponent,
     NodeComponent,
     LinkedListComponent,
