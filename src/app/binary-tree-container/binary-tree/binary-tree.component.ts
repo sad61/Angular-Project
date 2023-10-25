@@ -10,90 +10,81 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./binary-tree.component.scss'],
 })
 export class BinaryTreeComponent {
-  rootData: any;
+  nodeData: any;
 
-  tree!: Node[] | null;
-
-  root!: Node | null;
+  root: Node | null = null;
 
   searchData: any;
 
   selectedNode!: Node | null;
 
-  delay: number = 400;
+  delayData: number = 400;
 
   isResolving: boolean = false;
 
-  private treeSubscription: Subscription;
+  private rootSubscription: Subscription;
 
   constructor(
     private treeService: BinaryTreeService,
     private snackBar: MatSnackBar
   ) {
-    this.rootData = '';
-    this.treeSubscription = this.treeService.getTree$().subscribe((tree) => {
-      this.tree = tree;
-    });
+    this.nodeData = '';
+
+    this.rootSubscription = this.treeService
+      .getRoot$()
+      .subscribe((root: Node | null) => {
+        this.root = root;
+      });
   }
 
   ngOnDestroy() {
-    this.treeSubscription.unsubscribe();
+    this.rootSubscription.unsubscribe();
     this.clear();
   }
 
-  addRoot() {
-    if (this.rootData) {
-      console.log(this.treeService.getRoot()!);
-      this.treeService.addRoot(this.rootData);
-      this.root = this.treeService.getRoot();
-      this.rootData = '';
-      this.treeService.setNode$(this.root!);
-    }
+  updateDelay() {
+    this.treeService.delay = this.delayData;
   }
 
-  async searchNode() {
-    if (this.isResolving) {
-      this.snackBar.open(`Aguarde a procura terminar.`, 'Dismiss');
+  async addNode() {
+    const data = parseInt(this.nodeData);
+    if (!this.treeService.isNumber(data)) {
+      this.snackBar.open(`Passe um valor válido (número)!`, 'Dismiss');
       return;
     }
-    const root = this.treeService.getRoot();
-    if (!root) return null;
-    this.isResolving = true;
-
-    let data = this.searchData;
-    let path: string[] = [];
-
-    const stack = [root];
-
-    while (stack.length > 0) {
-      let currentNode = stack.pop();
-
-      await new Promise((resolve) => setTimeout(resolve, this.delay));
-      this.treeService.setNode$(currentNode!);
-      if (currentNode?.getData() === this.searchData) {
-        while (currentNode?.getAncestor()) {
-          path.push(currentNode.getData().toString());
-          currentNode = currentNode?.getAncestor();
-        }
-        this.snackBar.open(
-          `Node '${data}' encontrado '${root.getData().toString()}->${path
-            .reverse()
-            .join('->')}`,
-          'Dismiss'
-        );
-        break;
-      }
-
-      for (let i = currentNode?.getChildren().length! - 1; i >= 0; i--) {
-        stack.push(currentNode?.getChildren()[i]!);
-      }
+    if (!this.treeService.isInsertable(data)) {
+      this.snackBar.open(`Árvore já possui esse valor!`, 'Dismiss');
+      return;
     }
-    this.isResolving = false;
-    return null;
+
+    await this.treeService.insert(data);
+    this.nodeData = '';
+    this.snackBar.open(`Valor ${data} insderido!`, 'Dismiss');
   }
 
+  checkIfBalanced() {
+    if (this.root === null) {
+      this.snackBar.open('Árvore não possui nenhum valor!', 'Dismiss');
+      return;
+    }
+    if (this.treeService.isAVL(this.root)) {
+      this.snackBar.open('A Árvore está balanceada.', 'Dismiss');
+      return;
+    }
+
+    this.snackBar.open('A Árvore não está balanceada!', 'Dismiss');
+    // if (this.root === null) return;
+    // const balanced = this.treeService.isBalanced(this.root);
+    // if (!balanced) {
+    //   this.snackBar.open(`Árvore não está balanceada.`, 'Dismiss');
+    //   return;
+    // }
+    // this.snackBar.open(`Árvore balanceada.`, 'Dismiss');
+  }
+
+  async searchNode() {}
+
   clear() {
-    this.tree = null;
     this.selectedNode = null;
     this.root = null;
     this.treeService.clear();

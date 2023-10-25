@@ -7,11 +7,12 @@
   >
     <div class="content">{{ node.data }}</div>
   </button>
-  <div class="children" *ngIf="hasChildren()">
-    <app-tree-node
-      [mainNode]="false"
-      *ngFor="let child of node?.children"
-      [node]="child"
-    ></app-tree-node>
+  <div class="children">
+    <div class="left" *ngIf="node.getLeft()!">
+      <app-tree-node [node]="node.getLeft()!"></app-tree-node>
+    </div>
+    <div class="right" *ngIf="node.getRight()!">
+      <app-tree-node [node]="node.getRight()!"></app-tree-node>
+    </div>
   </div>
 </div>

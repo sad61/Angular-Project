@@ -67,11 +67,18 @@
 
 .tree-container {
   display: flex;
-  flex-direction: column; /* Stack nodes vertically */
+  flex-direction: row; /* Stack nodes vertically */
   flex-wrap: wrap;
   box-sizing: border-box;
   align-items: flex-start;
   justify-content: center;
   height: 100%;
   width: 100%;
+}
+
+.tree-header-buttons {
+  display: flex;
+}
+.tree-clear {
+  margin-right: 10px;
 }

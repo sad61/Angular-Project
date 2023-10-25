@@ -28,27 +28,31 @@ export class TreeNodeComponent {
   updateNode() {
     this.treeService.setNode$(this.node);
   }
-
-  hasChildren() {
-    return this.node?.getChildren()
-      ? this.node.getChildren().length > 0
-      : false;
-  }
 }
 
 export class Node {
-  data: any;
-  children!: Node[];
+  data: number;
+  left!: Node | null;
+  right!: Node | null;
   ancestor!: Node;
-  depth!: number;
+  depth: number;
 
-  constructor(data: any) {
+  constructor(data: number) {
     this.data = data;
-    this.children = [];
-    this.depth = 0;
+    this.left = null;
+    this.right = null;
+    this.depth = 1;
   }
 
-  getData(): any {
+  getRight(): Node | null {
+    return this.right;
+  }
+
+  getLeft(): Node | null {
+    return this.left;
+  }
+
+  getData(): number {
     return this.data;
   }
 
@@ -56,19 +60,15 @@ export class Node {
     return this.depth;
   }
 
-  setDepth(depth: number) {
-    this.depth = depth + 1;
-  }
-
-  getChildren(): Node[] {
-    return this.children;
-  }
-
   getAncestor(): Node {
     return this.ancestor;
   }
 
-  setData(data: any): void {
+  setDepth(depth: number) {
+    this.depth = depth + 1;
+  }
+
+  setData(data: number): void {
     this.data = data;
   }
 
@@ -76,11 +76,11 @@ export class Node {
     this.ancestor = ancestor;
   }
 
-  setChild(child: Node | null) {
-    if (child !== null) {
-      this.children.push(child);
-      return;
-    }
-    this.children = [];
+  setLeft(node: Node | null) {
+    this.left = node;
+  }
+
+  setRight(node: Node | null) {
+    this.right = node;
   }
 }

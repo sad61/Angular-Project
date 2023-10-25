@@ -5,7 +5,7 @@
   <div class="header-tree">
     <div class="content-root">
       <mat-tab-group>
-        <mat-tab label="Main Root">
+        <mat-tab label="Add nodes (Balancing)">
           <div class="input-row">
             <label for="Root">Root:</label>
             <mat-form-field>
@@ -14,9 +14,9 @@
                   id="rootInput"
                   matInput
                   placeholder="Node value"
-                  [(ngModel)]="rootData"
+                  [(ngModel)]="nodeData"
                   name="input"
-                  (keydown.enter)="addRoot()"
+                  (keydown.enter)="addNode()"
                 />
               </div>
             </mat-form-field>
@@ -56,8 +56,9 @@
                   id="rootInput"
                   matInput
                   placeholder="Delay Ex: 1000 = 1s"
-                  [(ngModel)]="delay"
+                  [(ngModel)]="delayData"
                   name="input"
+                  (keydown.enter)="updateDelay()"
                 />
               </div>
             </mat-form-field>
@@ -65,8 +66,23 @@
         </mat-tab>
       </mat-tab-group>
     </div>
-    <div class="clear-tree-button">
-      <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+    <div class="tree-header-buttons">
+      <button
+        class="tree-clear"
+        mat-raised-button
+        color="warn"
+        (click)="clear()"
+      >
+        Clear
+      </button>
+      <button
+        class="tree-balanced"
+        mat-raised-button
+        color="accent"
+        (click)="checkIfBalanced()"
+      >
+        Balanced?
+      </button>
     </div>
   </div>
   <div class="tree">

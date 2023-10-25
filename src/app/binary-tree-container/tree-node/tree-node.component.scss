@@ -1,18 +1,12 @@
 .tree-node {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  margin: auto auto;
+  flex-direction: column;
   align-items: center;
-  margin: 10px 0 10px 0;
+  margin: 10px;
 }
 
 .node-button {
   margin: 10px;
-}
-
-.xesque {
-  background-color: white;
 }
 
 .content {
@@ -24,4 +18,11 @@
 
 .clicked-node {
   background-color: red;
+}
+
+/* Add some spacing between child nodes */
+.children {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
