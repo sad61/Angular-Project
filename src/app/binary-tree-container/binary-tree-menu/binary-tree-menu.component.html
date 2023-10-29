@@ -2,34 +2,41 @@
   <div class="node-menu" *ngIf="node">
     <div class="nodes">
       <ng-container class="nodes-drawn" *ngIf="node">
-        <app-tree-node
-          [mainNode]="true"
-          [node]="node.getAncestor() || node"
-        ></app-tree-node>
+        <app-tree-node [mainNode]="true" [node]="node"></app-tree-node>
       </ng-container>
     </div>
   </div>
   <div class="node-menu" *ngIf="!node"></div>
   <div mat-elevation-z2 class="buttons">
     <button mat-raised-button color="accent" (click)="root()">Root</button>
-    <button mat-raised-button (click)="ancestor()" color="primary">
-      ancestor
-    </button>
   </div>
-  <div class="add-child">
+  <div mat-elevation-z2 class="insert-tree input-container">
     <mat-tab-group>
-      <mat-tab label="Add child">
+      <mat-tab label="Insert">
         <div class="input-row">
-          <label for="Child">Child:</label>
+          <label for="prevInput">Right:</label>
           <mat-form-field>
-            <div>
+            <div class="prev-input">
               <input
-                id="childInput"
+                id="prevInput"
                 matInput
                 placeholder="Node value"
-                [(ngModel)]="childData"
+                [(ngModel)]="rightData"
                 name="input"
-                (keydown.enter)="addChild()"
+                (keydown.enter)="insertRight()"
+              />
+            </div>
+          </mat-form-field>
+          <label for="nextInput">Left:</label>
+          <mat-form-field>
+            <div class="next-input">
+              <input
+                id="nextInput"
+                matInput
+                placeholder="Node value"
+                [(ngModel)]="leftData"
+                name="input"
+                (keydown.enter)="insertLeft()"
               />
             </div>
           </mat-form-field>

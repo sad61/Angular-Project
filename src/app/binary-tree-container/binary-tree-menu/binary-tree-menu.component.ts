@@ -3,6 +3,8 @@ import { Node } from '../tree-node/tree-node.component';
 import { BinaryTreeService } from '../service/binary-tree.service';
 import { Subscription } from 'rxjs';
 import { CdkDragMove } from '@angular/cdk/drag-drop';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotificationService } from '../service/notification.service';
 
 @Component({
   selector: 'app-binary-tree-menu',
@@ -12,19 +14,23 @@ import { CdkDragMove } from '@angular/cdk/drag-drop';
 export class BinaryTreeMenuComponent {
   @Input() node!: Node | null;
   childData: any;
-  private isDragging = false;
-  private startMouseX!: number;
-  private startMouseY!: number;
-  private startScrollX!: number;
-  private startScrollY!: number;
+
+  rightData!: any;
+  leftData!: any;
 
   private nodeSubscription!: Subscription;
 
-  constructor(private treeService: BinaryTreeService) {}
+  constructor(
+    private treeService: BinaryTreeService,
+    private snackBar: MatSnackBar,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit() {
     this.nodeSubscription = this.treeService.getNode$().subscribe((node) => {
       this.node = node!;
+      this.rightData = node?.right?.data;
+      this.leftData = node?.left?.data;
     });
   }
 
@@ -41,48 +47,31 @@ export class BinaryTreeMenuComponent {
     }
   }
 
+  clear() {
+    this.node = null;
+  }
+
   root() {
     if (this.treeService.getRoot())
       this.treeService.getNode$().next(this.treeService.getRoot()!);
   }
 
-  ancestor() {
-    if (this.node?.getAncestor())
-      this.treeService.getNode$().next(this.node.getAncestor());
+  insertRight() {
+    const data = parseInt(this.rightData);
+    if (!this.treeService.isValidInput(data)) return;
+    this.node = this.treeService.insertRight(this.node, data);
+    this.treeService.nodesNumber.push(data);
+    this.treeService.updateDepths(this.treeService.root);
+    this.notificationService.notify('Node inserido!');
   }
 
-  @HostListener('mousemove', ['$event'])
-  onMouseMove(event: MouseEvent) {
-    if (this.isDragging) {
-      const deltaX = event.clientX - this.startMouseX;
-      const deltaY = event.clientY - this.startMouseY;
-
-      // Adjust scroll position
-      this.scrollContainer.scrollLeft = this.startScrollX - deltaX;
-      this.scrollContainer.scrollTop = this.startScrollY - deltaY;
-    }
-  }
-
-  @HostListener('mouseup', ['$event'])
-  onMouseUp() {
-    if (this.isDragging) {
-      this.stopDrag();
-    }
-  }
-
-  get scrollContainer() {
-    return document.querySelector('.scroll-container') as HTMLElement;
-  }
-
-  startDrag(event: MouseEvent) {
-    this.isDragging = true;
-    this.startMouseX = event.clientX;
-    this.startMouseY = event.clientY;
-    this.startScrollX = this.scrollContainer.scrollLeft;
-    this.startScrollY = this.scrollContainer.scrollTop;
-  }
-
-  stopDrag() {
-    this.isDragging = false;
+  insertLeft() {
+    if (this.leftData === '') return;
+    const data = parseInt(this.leftData);
+    if (!this.treeService.isValidInput(data)) return;
+    this.node = this.treeService.insertLeft(this.node, data);
+    this.treeService.nodesNumber.push(data);
+    this.treeService.updateDepths(this.treeService.root);
+    this.notificationService.notify('Node inserido!');
   }
 }

@@ -3,86 +3,138 @@
     <app-binary-tree-menu></app-binary-tree-menu>
   </div>
   <div class="header-tree">
-    <div class="content-root">
-      <mat-tab-group>
-        <mat-tab label="Add nodes (Balancing)">
-          <div class="input-row">
-            <label for="Root">Root:</label>
-            <mat-form-field>
-              <div>
-                <input
-                  id="rootInput"
-                  matInput
-                  placeholder="Node value"
-                  [(ngModel)]="nodeData"
-                  name="input"
-                  (keydown.enter)="addNode()"
-                />
+    <div class="main-header-tree">
+      <div class="input-tree-node">
+        <mat-tab-group>
+          <mat-tab label="Add nodes (balancing)">
+            <div class="input-row">
+              <div class="tab-header-add-tree-node">
+                <label for="Node">Node:</label>
               </div>
-            </mat-form-field>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-    <div class="content-root">
-      <mat-tab-group>
-        <mat-tab label="Search node">
-          <div class="input-row">
-            <label for="Search ">Search:</label>
-            <mat-form-field>
-              <div>
-                <input
-                  id="rootInput"
-                  matInput
-                  placeholder="Node value"
-                  [(ngModel)]="searchData"
-                  name="input"
-                  (keydown.enter)="searchNode()"
-                />
+              <mat-form-field>
+                <div>
+                  <input
+                    id="rootInput"
+                    matInput
+                    placeholder="Node value"
+                    [(ngModel)]="nodeData"
+                    name="input"
+                    (keydown.enter)="addNode()"
+                  />
+                </div>
+              </mat-form-field>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+      <div class="search-tree-node">
+        <mat-tab-group>
+          <mat-tab label="Search node">
+            <div class="input-row">
+              <div class="tab-header-search-tree">
+                <label for="Search ">Search:</label>
+                <div class="options-search-tree">
+                  <div class="select-traversal">
+                    <button
+                      class="select-traversal"
+                      mat-raised-button
+                      [matMenuTriggerFor]="searchTreeMode"
+                    >
+                      {{ searchMode }}
+                    </button>
+                    <mat-menu #searchTreeMode="matMenu" yPosition="above">
+                      <button mat-menu-item (click)="preOrder()">
+                        Pre-order
+                      </button>
+                      <button mat-menu-item (click)="inOrder()">
+                        In-order
+                      </button>
+                      <button mat-menu-item (click)="postOrder()">
+                        Post-order
+                      </button>
+                    </mat-menu>
+                  </div>
+                </div>
               </div>
-            </mat-form-field>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-    <div class="content-root">
-      <mat-tab-group>
-        <mat-tab label="Search delay">
-          <div class="input-row">
-            <label for="Root">Delay:</label>
-            <mat-form-field>
-              <div>
-                <input
-                  id="rootInput"
-                  matInput
-                  placeholder="Delay Ex: 1000 = 1s"
-                  [(ngModel)]="delayData"
-                  name="input"
-                  (keydown.enter)="updateDelay()"
-                />
-              </div>
-            </mat-form-field>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-    <div class="tree-header-buttons">
-      <button
-        class="tree-clear"
-        mat-raised-button
-        color="warn"
-        (click)="clear()"
-      >
-        Clear
-      </button>
-      <button
-        class="tree-balanced"
+              <mat-form-field>
+                <div>
+                  <input
+                    id="rootInput"
+                    matInput
+                    placeholder="Node value"
+                    [(ngModel)]="searchData"
+                    name="input"
+                    (keydown.enter)="searchNode()"
+                  />
+                </div>
+              </mat-form-field>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+      <div class="delay-tree">
+        <mat-tab-group>
+          <mat-tab label="Delay">
+            <div class="input-row">
+              <label for="Root">Delay (ms):</label>
+              <mat-form-field>
+                <div>
+                  <input
+                    id="rootInput"
+                    matInput
+                    placeholder="Delay Ex: 1000 = 1s"
+                    [(ngModel)]="delayData"
+                    name="input"
+                    (keydown.enter)="updateDelay()"
+                  />
+                </div>
+              </mat-form-field>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+      <div class="tree-header-buttons">
+        <button
+          class="tree-clear"
+          mat-raised-button
+          color="warn"
+          (click)="clear()"
+        >
+          Clear
+        </button>
+        <button
+          class="tree-isbalanced"
+          mat-raised-button
+          color="accent"
+          (click)="checkIfBalanced()"
+        >
+          Balanced?
+        </button>
+        <button
+          class="tree-balance"
+          mat-raised-button
+          color="accent"
+          (click)="balance()"
+        >
+          Balance
+        </button>
+      </div>
+      <!-- <button
+        class="tree-rotate-left"
         mat-raised-button
         color="accent"
-        (click)="checkIfBalanced()"
+        (click)="rotateLeft()"
       >
-        Balanced?
+        rotate left
       </button>
+      <button
+        class="tree-rotate-right"
+        mat-raised-button
+        color="accent"
+        (click)="rotateRight()"
+      >
+        rotate right
+      </button> -->
     </div>
   </div>
   <div class="tree">

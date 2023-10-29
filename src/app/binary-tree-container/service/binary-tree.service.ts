@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Node } from '../tree-node/tree-node.component';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +15,12 @@ export class BinaryTreeService {
 
   treeDepth = 0;
   selectedNode: Node | null = null;
-  delay: number = 400;
+  delay: number = 100;
 
-  constructor() {
+  constructor(
+    private snackBar: MatSnackBar,
+    private notificationService: NotificationService
+  ) {
     this.nodesNumber = [];
     this.node$ = new ReplaySubject<Node | null>(1);
     this.root$ = new ReplaySubject<Node | null>(1);
@@ -28,8 +33,10 @@ export class BinaryTreeService {
 
   clear() {
     this.root$?.next(null);
+    this.node$.next(null);
+    this.root = null;
     this.treeDepth = 0;
-    this.setNode$(null!);
+    this.nodesNumber = [];
   }
 
   getRoot$(): ReplaySubject<Node | null> {
@@ -44,7 +51,7 @@ export class BinaryTreeService {
     return this.node$;
   }
 
-  setNode$(node: Node) {
+  setNode$(node: Node | null) {
     this.selectedNode = node;
     this.node$.next(node);
   }
@@ -54,57 +61,24 @@ export class BinaryTreeService {
   }
 
   isNumber(data: any): boolean {
-    return typeof data === 'number';
+    const parseddata = parseInt(data);
+    return !isNaN(parseddata) && typeof parseddata === 'number';
   }
 
   isInsertable(data: any): boolean {
     return !this.nodesNumber.includes(data);
   }
 
-  getHeight(node: Node | null): number {
-    if (node === null) {
-      return 0;
+  isValidInput(data: any): boolean {
+    if (!this.isNumber(data)) {
+      this.notificationService.notify('Passe um valor válido');
+      return false;
     }
-    return node.depth;
-  }
-
-  updateDepth(node: Node) {
-    const leftDepth = this.getHeight(node.left);
-    const rightDepth = this.getHeight(node.right);
-    node.depth = Math.max(leftDepth, rightDepth) + 1;
-  }
-
-  rotateRight(y: Node): Node {
-    const x = y.left as Node;
-    const T2 = x.right as Node;
-
-    x.right = y;
-    y.left = T2;
-
-    this.updateDepth(y);
-    this.updateDepth(x);
-
-    return x;
-  }
-
-  rotateLeft(x: Node): Node {
-    const y = x.right as Node;
-    const T2 = y.left as Node;
-
-    y.left = x;
-    x.right = T2;
-
-    this.updateDepth(x);
-    this.updateDepth(y);
-
-    return y;
-  }
-
-  getBalanceFactor(node: Node | null): number {
-    if (node === null) {
-      return 0;
+    if (!this.isInsertable(data)) {
+      this.notificationService.notify('Árvore já possui esse valor!');
+      return false;
     }
-    return this.getHeight(node.left) - this.getHeight(node.right);
+    return true;
   }
 
   async insert(data: number) {
@@ -133,54 +107,176 @@ export class BinaryTreeService {
 
     const balance = this.getBalanceFactor(node);
 
-    if (balance > 1 && data < (node.left as Node).data) {
+    if (balance > 1 && data < node.left!.data) {
       return this.rotateRight(node);
     }
-    if (balance < -1 && data > (node.right as Node).data) {
+    if (balance < -1 && data > node.right!.data) {
       return this.rotateLeft(node);
     }
-    if (balance > 1 && data > (node.left as Node).data) {
-      node.left = this.rotateLeft(node.left as Node);
+    if (balance > 1 && data > node.left!.data) {
+      node.left = this.rotateLeft(node.left!);
       return this.rotateRight(node);
     }
-    if (balance < -1 && data < (node.right as Node).data) {
-      node.right = this.rotateRight(node.right as Node);
+    if (balance < -1 && data < node.right!.data) {
+      node.right = this.rotateRight(node.right!);
       return this.rotateLeft(node);
     }
     return node;
   }
 
-  inOrderTraversal(node: Node | null) {
-    if (node === null) return;
-    this.inOrderTraversal(node!.left);
-    console.log(node);
-    this.inOrderTraversal(node!.right);
+  insertRight(node: Node | null, data: number): Node {
+    if (node === null) {
+      return new Node(data);
+    }
+
+    if (data > node.data) {
+      node.right = this.insertRight(node.right, data);
+    }
+
+    node.depth = 1 + Math.max(node.left?.depth || 0, node.right?.depth || 0);
+
+    return node;
   }
 
-  isAVL(root: Node | null): boolean {
-    function getHeight(node: Node | null): number {
-      if (node === null) {
-        return 0;
-      }
-      const leftHeight = getHeight(node.left);
-      const rightHeight = getHeight(node.right);
-      return Math.max(leftHeight, rightHeight) + 1;
+  insertLeft(node: Node | null, data: number): Node {
+    if (node === null) {
+      return new Node(data);
     }
 
-    function isBalanced(node: Node | null): boolean {
-      if (node === null) {
-        return true;
-      }
+    node.left = this.insertLeft(node.left, data);
 
-      const leftHeight = getHeight(node.left);
-      const rightHeight = getHeight(node.right);
+    // Update the depth of the current node and its ancestors
+    this.updateDepth(node);
 
-      if (Math.abs(leftHeight - rightHeight) > 1) {
-        return false;
-      }
-      return isBalanced(node.left) && isBalanced(node.right);
+    return node;
+  }
+
+  getBalanceFactor(node: Node | null): number {
+    if (node === null) {
+      return 0;
+    }
+    return this.getHeight(node.left) - this.getHeight(node.right);
+  }
+
+  isBalanced(root: Node | null): boolean {
+    if (root === null) {
+      return true;
     }
 
-    return isBalanced(root);
+    const leftHeight = this.getHeight(root.left);
+    const rightHeight = this.getHeight(root.right);
+    if (Math.abs(leftHeight - rightHeight) > 1) {
+      return false;
+    }
+
+    return this.isBalanced(root.left) && this.isBalanced(root.right);
+  }
+
+  getHeight(node: Node | null): number {
+    return node ? node.depth : 0;
+  }
+
+  updateDepth(node: Node) {
+    node.depth =
+      1 + Math.max(this.getHeight(node.left), this.getHeight(node.right));
+  }
+
+  rotateRight(node: Node): Node {
+    const newRoot = node.left!;
+    node.left = newRoot.right;
+    newRoot.right = node;
+    this.updateDepth(node);
+    this.updateDepth(newRoot);
+    return newRoot;
+  }
+
+  rotateLeft(node: Node): Node {
+    const newRoot = node.right!;
+    node.right = newRoot.left;
+    newRoot.left = node;
+    this.updateDepth(node);
+    this.updateDepth(newRoot);
+    return newRoot;
+  }
+
+  balanceTree(node: Node | null): Node | null {
+    if (node === null) {
+      return null;
+    }
+
+    const balanceFactor = this.getBalanceFactor(node);
+
+    if (balanceFactor > 1) {
+      if (this.getBalanceFactor(node.left) < 0) {
+        node.left = this.rotateLeft(node.left!);
+      }
+      return this.rotateRight(node);
+    }
+
+    // Right-Heavy
+    if (balanceFactor < -1) {
+      if (this.getBalanceFactor(node.right) > 0) {
+        node.right = this.rotateRight(node.right!);
+      }
+      return this.rotateLeft(node);
+    }
+
+    return node;
+  }
+
+  updateDepths(node: Node | null): Node | null {
+    if (node === null) {
+      return null;
+    }
+
+    node.left = this.updateDepths(node.left);
+    node.right = this.updateDepths(node.right);
+
+    node.depth =
+      1 + Math.max(this.getHeight(node.left), this.getHeight(node.right));
+
+    return node;
+  }
+
+  async preOrderTraversal(node: Node | null, data: number): Promise<boolean> {
+    if (node === null) return false;
+
+    this.setNode$(node);
+    if (data === node.data) return true;
+    await new Promise((resolve) => setTimeout(resolve, this.delay));
+
+    if (await this.preOrderTraversal(node.left, data)) return true;
+
+    if (await this.preOrderTraversal(node.right, data)) return true;
+
+    return false;
+  }
+
+  async inOrderTraversal(node: Node | null, data: number): Promise<boolean> {
+    if (node === null) return false;
+
+    if (await this.inOrderTraversal(node.left, data)) return true;
+
+    this.setNode$(node);
+    console.log(node);
+    if (data === node.data) return true;
+    await new Promise((resolve) => setTimeout(resolve, this.delay));
+
+    if (await this.inOrderTraversal(node.right, data)) return true;
+    return false;
+  }
+
+  async posOrderTraversal(node: Node | null, data: number): Promise<boolean> {
+    if (node === null) return false;
+
+    if (await this.posOrderTraversal(node.left, data)) return true;
+
+    if (await this.posOrderTraversal(node.right, data)) return true;
+
+    this.setNode$(node);
+    if (data === node.data) return true;
+    await new Promise((resolve) => setTimeout(resolve, this.delay));
+
+    return false;
   }
 }

@@ -34,13 +34,14 @@ export class Node {
   data: number;
   left!: Node | null;
   right!: Node | null;
-  ancestor!: Node;
+  ancestor!: Node | null;
   depth: number;
 
   constructor(data: number) {
     this.data = data;
     this.left = null;
     this.right = null;
+    this.ancestor = null;
     this.depth = 1;
   }
 
@@ -58,10 +59,6 @@ export class Node {
 
   getDepth(): number {
     return this.depth;
-  }
-
-  getAncestor(): Node {
-    return this.ancestor;
   }
 
   setDepth(depth: number) {
