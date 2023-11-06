@@ -63,7 +63,6 @@ export class SortComponent {
 
     this.metrics = {
       sorting: 'Merge Sort',
-      fileName: this.fileName,
       time: `${timeTaken} ms`,
       arr: [arrCopy[0], '...', arrCopy[arrCopy.length - 1]],
     };
@@ -91,7 +90,6 @@ export class SortComponent {
     const timeTaken = end - start;
     const metrics: Metrics = {
       sorting: 'Bubble Sort',
-      fileName: this.fileName,
       time: `${timeTaken} ms`,
       arr: [arr[0], '...', arr[arr.length - 1]],
     };
@@ -108,7 +106,6 @@ export class SortComponent {
 
       const metrics: Metrics = {
         sorting: 'Quick Sort',
-        fileName: this.fileName,
         time: `${timeTaken} ms`,
         arr: arr.length > 0 ? [arr[0], '...', arr[arr.length - 1]] : [],
       };
@@ -140,7 +137,6 @@ export class SortComponent {
     const timeTaken = end - start;
     const metrics: Metrics = {
       sorting: 'Quick Sort',
-      fileName: this.fileName,
       time: `${timeTaken} ms`,
       arr: sortedArray.length > 0 ? [firstElement, '...', lastElement] : [],
     };
@@ -191,7 +187,6 @@ export class SortComponent {
       }
 
       if (minIndex !== i) {
-        // Swap arr[i] and arr[minIndex]
         const temp = arr[i];
         arr[i] = arr[minIndex];
         arr[minIndex] = temp;
@@ -203,7 +198,6 @@ export class SortComponent {
     console.log(`Selection sort: ${arr}`);
     const metrics: Metrics = {
       sorting: 'Selection Sort',
-      fileName: this.fileName,
       time: `${timeTaken} ms`,
       arr: arr.length > 0 ? [arr[0], '...', arr[arr.length - 1]] : [],
     };
@@ -232,7 +226,6 @@ export class SortComponent {
     console.log(`Insetion sort: ${arr}`);
     const metrics: Metrics = {
       sorting: 'Insertion Sort',
-      fileName: this.fileName,
       time: `${timeTaken} ms`,
       arr: arr.length > 0 ? [arr[0], '...', arr[arr.length - 1]] : [],
     };

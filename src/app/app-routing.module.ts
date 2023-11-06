@@ -8,8 +8,8 @@ const routes: Routes = [
   { path: 'linked-list-container', component: LinkedListContainerComponent },
   { path: 'binary-tree-container', component: BinaryTreeContainerComponent },
   { path: 'sort-container', component: SortContainerComponent },
-  { path: '', redirectTo: '/linked-list-container', pathMatch: 'full' },
-  { path: '**', redirectTo: '/linked-list-container', pathMatch: 'full' },
+  { path: '', redirectTo: '/sort-container', pathMatch: 'full' },
+  { path: '**', redirectTo: '/sort-container', pathMatch: 'full' },
 ];
 
 @NgModule({
