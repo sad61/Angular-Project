@@ -1,0 +1,45 @@
+<div class="main">
+  <div class="menu-sort">
+    <app-nodemenu></app-nodemenu>
+  </div>
+  <div class="header-sort">
+    <div class="header-content-sort">
+      <div mat-elevation-z2 class="input-header-sort">
+        <mat-tab-group>
+          <mat-tab label="Input node">
+            <div class="input-row">
+              <label for="changeInput">Input:</label>
+              <mat-form-field>
+                <div>
+                  <input
+                    id="changedInput"
+                    matInput
+                    placeholder="Node value"
+                    [(ngModel)]="inputData"
+                    name="input"
+                    (keydown.enter)="onEnterPressed()"
+                  />
+                </div>
+              </mat-form-field>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+      <button
+        mat-raised-button
+        color="warn"
+        class="clear-button"
+        (click)="clear()"
+      >
+        Clear
+      </button>
+    </div>
+  </div>
+  <div class="button-row">
+    <div class="flex-container">
+      <div *ngFor="let node of linkedList" class="button-container">
+        <app-node [node]="node"></app-node>
+      </div>
+    </div>
+  </div>
+</div>

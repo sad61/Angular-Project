@@ -36,6 +36,10 @@ import { TreeNodeComponent } from './binary-tree-container/tree-node/tree-node.c
 import { BinaryTreeMenuComponent } from './binary-tree-container/binary-tree-menu/binary-tree-menu.component';
 import { DragScrollDirective } from './binary-tree-container/drag-scroll.directive';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SortContainerComponent } from './sort-container/sort-container.component';
+import { SortComponent } from './sort-container/sort/sort.component';
+import { PrettyJsonPipe } from './sort-container/pretty-json.pipe';
+import { SortMenuComponent } from './sort-container/sort-menu/sort-menu.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +54,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     TreeNodeComponent,
     BinaryTreeMenuComponent,
     DragScrollDirective,
+    SortContainerComponent,
+    SortComponent,
+    PrettyJsonPipe,
+    SortMenuComponent,
   ],
   imports: [
     BrowserModule,

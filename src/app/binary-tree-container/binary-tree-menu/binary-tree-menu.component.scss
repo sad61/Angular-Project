@@ -41,11 +41,14 @@ label {
 
 .nodes {
   display: flex;
-  grid-template-areas: "nodes-drawn" "buttons";
   justify-content: flex-start;
   flex-direction: row;
   align-items: center;
   overflow: scroll;
+  height: 100%;
+}
+
+.nodes-drawn {
   height: 100%;
 }
 

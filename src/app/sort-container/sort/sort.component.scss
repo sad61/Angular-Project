@@ -1,0 +1,65 @@
+@use "@angular/material" as mat;
+
+.main-sort {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+
+  grid-template-areas:
+    "header "
+    "sort ";
+}
+
+.header-sort {
+  grid-area: header;
+  display: flex;
+  justify-content: space;
+  align-items: center;
+  width: 100%;
+  box-shadow: 0 2px rgba(0, 0, 0, 0.05);
+}
+
+.buttons-sort {
+  display: flex;
+}
+
+.menu-sort {
+  grid-area: menu;
+  top: 0;
+  bottom: 0; /* Extend to the bottom of the grid */
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.tab-header-sort {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: column; /* Stack label and input vertically */
+  gap: 10px; /* Add space between input containers */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add box shadow on all sides */
+  border-radius: 8px; /* Add border radius for a softer look */
+  padding: 10px; /* Add internal padding for separation */ /* Stack input rows vertically */
+}
+
+.sort-toggle-button {
+  margin-right: 10px;
+}
+
+.options-sort {
+  margin-left: 10px;
+}
+
+.sort {
+  display: flex;
+  grid-area: sort;
+  flex-direction: row;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  flex-grow: 1;
+}

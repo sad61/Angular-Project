@@ -1,0 +1,67 @@
+<div class="main-sort">
+  <div class="sort">
+    <div *ngIf="metrics">
+      <ng-container> {{ metricsArr | json }}</ng-container>
+    </div>
+  </div>
+  <div class="header-sort">
+    <div class="input-header-sort">
+      <mat-tab-group>
+        <mat-tab label="Sorting">
+          <div class="input-row">
+            <div class="tab-header-sort">
+              <div class="buttons-sort">
+                <div class="sort-toggle-button">
+                  <button
+                    class="select-traversal"
+                    mat-raised-button
+                    (click)="sort()"
+                  >
+                    Sort
+                  </button>
+                </div>
+                <div class="options-sort">
+                  <div>
+                    <button
+                      class="select-traversal"
+                      mat-raised-button
+                      disabled
+                      [matMenuTriggerFor]="searchTreeMode"
+                    >
+                      {{ sortMode }}
+                    </button>
+                  </div>
+
+                  <mat-menu #searchTreeMode="matMenu" yPosition="above">
+                    <div *ngFor="let mode of sortModes">
+                      <button mat-menu-item (click)="changeSortMode(mode)">
+                        {{ mode }}
+                      </button>
+                    </div>
+                  </mat-menu>
+                </div>
+              </div>
+            </div>
+            <mat-form-field>
+              <div>
+                <input
+                  id="rootInput"
+                  matInput
+                  disabled
+                  placeholder="file name"
+                  [(ngModel)]="fileName"
+                  name="input"
+                />
+              </div>
+            </mat-form-field>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <div class="options-sort"></div>
+    <button type="button" mat-raised-button (click)="fileInput.click()">
+      Choose File
+    </button>
+    <input hidden (change)="onFileInput()" #fileInput type="file" id="file" />
+  </div>
+</div>
