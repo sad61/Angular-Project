@@ -1,7 +1,9 @@
 <div class="main-sort">
   <div class="sort">
     <div *ngIf="metrics">
-      <ng-container> {{ metricsArr | json }}</ng-container>
+      <div *ngFor="let metrics of metricsArr">
+        <ng-container> {{ metrics | json }}</ng-container>
+      </div>
     </div>
   </div>
   <div class="header-sort">
