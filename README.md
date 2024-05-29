@@ -1,6 +1,6 @@
 # Angularapp
 
-A small angular project, that i've been using to develop projects for uni.
+A small angular project, that i've been using to develop projects for uni. You can open it by clicking on `xesquedele.vercel.app` under the `about` section.
 
 ## Development server
 
