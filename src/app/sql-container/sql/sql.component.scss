@@ -1,0 +1,135 @@
+.section-sql {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 60% 1fr;
+  grid-template-areas: "customer-side dev-side" "stock sales";
+  width: 100%;
+  height: 93.5%;
+  overflow: hidden; /* Impede overflow geral */
+}
+
+.customer-side {
+  display: flex;
+  flex-direction: column;
+  grid-area: customer-side;
+  min-width: 300px;
+}
+
+.dev-side {
+  grid-area: dev-side;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.customer-inputs {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 8px;
+}
+
+.payment-method-div {
+  display: flex;
+  flex-direction: column; 
+  height:100%;
+}
+
+.payment-method-container {
+  display: flex;
+  align-items: center; 
+  flex-direction: column;
+  gap: 5px;
+}
+
+.purchase-button {
+  display: flex;
+  align-items: center; 
+  flex-direction: column;
+  overflow: hidden;
+  gap: 10px;
+}
+
+.purchase-button h4 {
+  margin: 0;
+}
+
+.customer-tab-group {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+}
+
+.customer-tab {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.customer-inventory {
+  flex-grow: 1;
+  margin: 0 10px 0 10px;
+  overflow: auto; 
+}
+
+.purchase-button {
+  overflow: auto;
+  margin: 10px 10px 0 10px;
+}
+
+.input-group {
+  display: flex;
+  gap: 16px;
+}
+
+.supplier-info,
+.item-info {
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.delivery-items {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.item-info-container {
+  margin-bottom: 16px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.button-container button {
+  margin-left: 15px; 
+}
+
+.stock-table-div {
+  grid-area: stock;
+}
+
+.sales-table-div {
+  grid-area: sales;
+}
+
+.stock-table-div, .sales-table-div {
+  padding: 16px;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.stock-table, .sales-table {
+  max-height: 90%;
+}
+
+
+
+
+

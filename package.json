@@ -20,10 +20,13 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "@nestjs/platform-socket.io": "^10.4.1",
+    "@nestjs/websockets": "^10.4.1",
     "bootstrap": "^5.2.3",
     "ngx-bootstrap": "^11.0.2",
     "rxjs": "~7.8.0",
     "schematics-scss-migrate": "^2.3.17",
+    "socket.io-client": "^4.7.5",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },

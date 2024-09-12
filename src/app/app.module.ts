@@ -13,6 +13,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appconfig.service';
 import { RequestInterceptor } from './request.interceptor';
 import { AppNavComponent } from './app-nav/app-nav.component';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -40,6 +41,11 @@ import { SortContainerComponent } from './sort-container/sort-container.componen
 import { SortComponent } from './sort-container/sort/sort.component';
 import { PrettyJsonPipe } from './sort-container/pretty-json.pipe';
 import { SortMenuComponent } from './sort-container/sort-menu/sort-menu.component';
+import { SqlComponent } from './sql-container/sql/sql.component';
+import { SqlContainerComponent } from './sql-container/sql-container.component';
+import { MatError } from '@angular/material/form-field';
+import {MatTableModule} from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -53,11 +59,12 @@ import { SortMenuComponent } from './sort-container/sort-menu/sort-menu.componen
     BinaryTreeComponent,
     TreeNodeComponent,
     BinaryTreeMenuComponent,
-    DragScrollDirective,
     SortContainerComponent,
     SortComponent,
     PrettyJsonPipe,
     SortMenuComponent,
+    SqlComponent,
+    SqlContainerComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +88,7 @@ import { SortMenuComponent } from './sort-container/sort-menu/sort-menu.componen
     MatTabsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    MatTableModule
   ],
   providers: [
     { provide: APP_SERVICE_CONFIG, useValue: APP_CONFIG },

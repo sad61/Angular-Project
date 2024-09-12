@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { LinkedListContainerComponent } from './linked-list-container/linked-list-container.component';
 import { BinaryTreeContainerComponent } from './binary-tree-container/binary-tree-container.component';
 import { SortContainerComponent } from './sort-container/sort-container.component';
+import { SqlContainerComponent } from './sql-container/sql-container.component';
 
 const routes: Routes = [
   { path: 'linked-list-container', component: LinkedListContainerComponent },
   { path: 'binary-tree-container', component: BinaryTreeContainerComponent },
   { path: 'sort-container', component: SortContainerComponent },
+  { path: 'sql-container', component: SqlContainerComponent },
   { path: '', redirectTo: '/sort-container', pathMatch: 'full' },
   { path: '**', redirectTo: '/sort-container', pathMatch: 'full' },
 ];

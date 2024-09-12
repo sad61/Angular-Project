@@ -1,0 +1,276 @@
+<section class="section-sql">
+  <div class="customer-side mat-elevation-z2">
+    <mat-tab-group class="customer-tab-group">
+      <mat-tab label="customer">
+        <div class="customer-inputs">
+          <div class="cpf-input">
+            <div>Enter your CPF:</div>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>CPF</mat-label>
+              <input
+                type="text"
+                placeholder="000.000.000-00"
+                matInput
+                [formControl]="cpfFormControl"
+                (input)="inputCPF()"
+              />
+              <mat-error
+                *ngIf="cpfFormControl.hasError('cpf') && !cpfFormControl.hasError('required')"
+              >
+                Please enter a valid CPF
+              </mat-error>
+              <mat-error *ngIf="cpfFormControl.hasError('required')">
+                CPF is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="payment-method-div">
+            <div class="payment-method-container">
+              <span>Payment method:</span>
+              <button mat-raised-button [matMenuTriggerFor]="menu">
+                {{ paymentMethod }}
+              </button>
+              <mat-menu #menu="matMenu" yPosition="above">
+                <button
+                  mat-menu-item
+                  *ngFor="let method of paymentMethods"
+                  (click)="changePaymentMethod(method)"
+                >
+                  {{ method }}
+                </button>
+              </mat-menu>
+            </div>
+
+            <div class="purchase-button">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="buyEverythingInBucket()"
+              >
+                Buy Everything
+              </button>
+              <h4>Total price: {{ totalPrice | currency }}</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="customer-inventory mat-elevation-z2">
+          <h2>Bucket</h2>
+          <table
+            mat-table
+            [dataSource]="bucketSource"
+            class="mat-elevation-z2 demo-table"
+          >
+            <ng-container matColumnDef="button">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                <button mat-icon-button (click)="removeItemFromBucket(i)">
+                  <mat-icon color="warn">delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let element">{{element.name}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef>Quantity</th>
+              <td mat-cell *matCellDef="let element">{{element.quantity}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="serialNumber">
+              <th mat-header-cell *matHeaderCellDef>Serial Number</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.serialNumber}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="pricePerUnit">
+              <th mat-header-cell *matHeaderCellDef>Price Per Unit</th>
+              <td mat-cell *matCellDef="let element">
+                {{element.pricePerUnit}}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="bucketColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: bucketColumns;"></tr>
+          </table>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <div class="dev-side mat-elevation-z2">
+    <mat-tab-group>
+      <mat-tab label="Delivery">
+        <div class="supplier-info mat-elevation-z2">
+          <form [formGroup]="deliveryForm">
+            <div class="input-group">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Supplier Name</mat-label>
+                <input
+                  matInput
+                  placeholder="Enter Supplier Name"
+                  formControlName="supplierName"
+                />
+                <mat-error
+                  *ngIf="deliveryForm.get('supplierName')?.hasError('required')"
+                >
+                  Supplier Name is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Supplier ID</mat-label>
+                <input
+                  matInput
+                  placeholder="Enter Supplier ID"
+                  formControlName="supplierID"
+                  type="number"
+                />
+                <mat-error
+                  *ngIf="deliveryForm.get('supplierID')?.hasError('required')"
+                >
+                  Supplier ID is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Contact Info</mat-label>
+                <input
+                  matInput
+                  placeholder="Enter Contact Info"
+                  formControlName="contactInfo"
+                />
+                <mat-error
+                  *ngIf="deliveryForm.get('contactInfo')?.hasError('required')"
+                >
+                  Contact info is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div formArrayName="items" class="delivery-items mat-elevation-z2">
+              <div
+                *ngFor="let item of items.controls; let i = index"
+                [formGroupName]="i"
+                class="item-info"
+              >
+                <h3>Item #{{ i + 1 }}</h3>
+                <div class="input-group">
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Item Name</mat-label>
+                    <input
+                      matInput
+                      placeholder="Enter Item Name"
+                      formControlName="name"
+                    />
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Quantity</mat-label>
+                    <input
+                      matInput
+                      type="number"
+                      placeholder="Enter Quantity"
+                      formControlName="quantity"
+                    />
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Price Per Unit</mat-label>
+                    <input
+                      matInput
+                      type="number"
+                      placeholder="Enter Price Per Unit"
+                      formControlName="pricePerUnit"
+                    />
+                  </mat-form-field>
+                </div>
+
+                <button mat-raised-button color="warn" (click)="removeItem(i)">
+                  Remove
+                </button>
+              </div>
+            </div>
+
+            <div class="button-container">
+              <button mat-raised-button color="primary" (click)="addItem()">
+                Add Another Item
+              </button>
+              <button mat-raised-button color="accent" (click)="callDelivery()">
+                Submit Delivery
+              </button>
+            </div>
+          </form>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <div class="stock-table-div mat-elevation-z2">
+    <h2>Stock Items</h2>
+    <div class="stock-table">
+      <table mat-table [dataSource]="stockSource" class="mat-elevation-z2">
+        <ng-container matColumnDef="button">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="addItemToBucket(element)"
+            >
+              Add to bucket
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="serialNumber">
+          <th mat-header-cell *matHeaderCellDef>Serial Number</th>
+          <td mat-cell *matCellDef="let element">{{element.serialNumber}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="pricePerUnit">
+          <th mat-header-cell *matHeaderCellDef>Price</th>
+          <td mat-cell *matCellDef="let element">{{element.pricePerUnit}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="stockColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: stockColumns;"></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="sales-table-div mat-elevation-z2">
+    <h2>Sales</h2>
+    <div class="sales-table">
+      <table mat-table [dataSource]="salesSource" class="mat-elevation-z2">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>id</th>
+          <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="customerCPF">
+          <th mat-header-cell *matHeaderCellDef>customerCPF</th>
+          <td mat-cell *matCellDef="let element">{{element.customerCPF}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="paymentMethod">
+          <th mat-header-cell *matHeaderCellDef>paymentMethod</th>
+          <td mat-cell *matCellDef="let element">{{element.paymentMethod}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="saleColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: saleColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</section>
