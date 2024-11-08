@@ -3,6 +3,7 @@
     <mat-tab-group class="customer-tab-group">
       <mat-tab label="customer">
         <div class="customer-inputs">
+          <!-- CPF Input -->
           <div class="cpf-input">
             <div>Enter your CPF:</div>
             <mat-form-field class="example-full-width" appearance="outline">
@@ -21,6 +22,40 @@
               </mat-error>
               <mat-error *ngIf="cpfFormControl.hasError('required')">
                 CPF is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="cidade-input">
+            <div>Enter your City:</div>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Cidade</mat-label>
+              <input
+                type="text"
+                placeholder="Enter your city"
+                matInput
+                [formControl]="cityFormControl"
+                (input)="inputCity()"
+              />
+              <mat-error *ngIf="cityFormControl.hasError('required')">
+                Cidade is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="team-input">
+            <div>Enter your Team:</div>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Time que Torce</mat-label>
+              <input
+                type="text"
+                placeholder="Enter your favorite team"
+                matInput
+                [formControl]="teamFormControl"
+                (input)="inputTeam()"
+              />
+              <mat-error *ngIf="teamFormControl.hasError('required')">
+                Time is <strong>required</strong>
               </mat-error>
             </mat-form-field>
           </div>
@@ -50,7 +85,12 @@
               >
                 Buy Everything
               </button>
-              <h4>Total price: {{ totalPrice | currency }}</h4>
+              <h4 *ngIf="isDiscount; else noDiscount">
+                (discount): {{ totalPrice | currency }}
+              </h4>
+              <ng-template #noDiscount>
+                <h4>{{ totalPrice | currency }}</h4>
+              </ng-template>
             </div>
           </div>
         </div>
@@ -73,25 +113,25 @@
 
             <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef>Name</th>
-              <td mat-cell *matCellDef="let element">{{element.name}}</td>
+              <td mat-cell *matCellDef="let element">{{ element.name }}</td>
             </ng-container>
 
             <ng-container matColumnDef="quantity">
               <th mat-header-cell *matHeaderCellDef>Quantity</th>
-              <td mat-cell *matCellDef="let element">{{element.quantity}}</td>
+              <td mat-cell *matCellDef="let element">{{ element.quantity }}</td>
             </ng-container>
 
             <ng-container matColumnDef="serialNumber">
               <th mat-header-cell *matHeaderCellDef>Serial Number</th>
               <td mat-cell *matCellDef="let element">
-                {{element.serialNumber}}
+                {{ element.serialNumber }}
               </td>
             </ng-container>
 
             <ng-container matColumnDef="pricePerUnit">
               <th mat-header-cell *matHeaderCellDef>Price Per Unit</th>
               <td mat-cell *matCellDef="let element">
-                {{element.pricePerUnit}}
+                {{ element.pricePerUnit }}
               </td>
             </ng-container>
 
@@ -189,6 +229,15 @@
                       formControlName="pricePerUnit"
                     />
                   </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Product Location</mat-label>
+                    <input
+                      matInput
+                      placeholder="Enter product location"
+                      formControlName="productLocation"
+                    />
+                  </mat-form-field>
                 </div>
 
                 <button mat-raised-button color="warn" (click)="removeItem(i)">
@@ -212,7 +261,14 @@
   </div>
 
   <div class="stock-table-div mat-elevation-z2">
-    <h2>Stock Items</h2>
+    <div style="align-items: center; flex-direction: row; display: flex;">
+      <h2>Stock Items</h2>
+      <mat-form-field style = "margin-left: 30px;">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilterStock($event)" #input />
+      </mat-form-field>
+    </div>
+
     <div class="stock-table">
       <table mat-table [dataSource]="stockSource" class="mat-elevation-z2">
         <ng-container matColumnDef="button">
@@ -243,6 +299,13 @@
           <td mat-cell *matCellDef="let element">{{element.pricePerUnit}}</td>
         </ng-container>
 
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef>Quantity</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.quantity }}
+          </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="stockColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: stockColumns;"></tr>
       </table>
@@ -250,7 +313,13 @@
   </div>
 
   <div class="sales-table-div mat-elevation-z2">
-    <h2>Sales</h2>
+        <div style="align-items: center; flex-direction: row; display: flex;">
+      <h2>Sales</h2>
+      <mat-form-field style = "margin-left: 30px;">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilterSale($event)" #input />
+      </mat-form-field>
+    </div>
     <div class="sales-table">
       <table mat-table [dataSource]="salesSource" class="mat-elevation-z2">
         <ng-container matColumnDef="id">
@@ -266,6 +335,23 @@
         <ng-container matColumnDef="paymentMethod">
           <th mat-header-cell *matHeaderCellDef>paymentMethod</th>
           <td mat-cell *matCellDef="let element">{{element.paymentMethod}}</td>
+        </ng-container>
+
+<ng-container matColumnDef="totalPrice">
+  <th mat-header-cell *matHeaderCellDef>totalPrice</th>
+  <td mat-cell *matCellDef="let element">
+    {{ element.totalPrice }}
+  </td>
+</ng-container>
+
+        <ng-container matColumnDef="saleDate">
+          <th mat-header-cell *matHeaderCellDef>saleDate</th>
+          <td mat-cell *matCellDef="let element">{{element.saleDate}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="isDiscount">
+          <th mat-header-cell *matHeaderCellDef>isDiscount</th>
+          <td mat-cell *matCellDef="let element">{{element.isDiscount}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="saleColumns"></tr>

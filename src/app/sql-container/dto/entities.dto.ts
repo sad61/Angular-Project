@@ -4,7 +4,12 @@ export class CreateDeliveryDto {
   supplierId!: number;
   contactInfo!: string;
   deliveryDate!: Date;
-  items!: Array<{ name: string, quantity: number; pricePerUnit: number, description?: string | undefined }>;
+  items!: Array<{
+    name: string;
+    quantity: number;
+    pricePerUnit: number;
+    description?: string | undefined;
+  }>;
 }
 
 export class CreateItemDto {
@@ -17,5 +22,15 @@ export class CreateItemDto {
 export class CreateSaleDto {
   customerCPF!: string;
   paymentMethod!: string;
-  items!: Array<{name: string, serialNumber: string, quantity: number}>
+  isDiscount!: boolean;
+  items!: Array<{ name: string; serialNumber: string; quantity: number }>;
+}
+
+export class SaleDto {
+  id!: number;
+  customerCPF!: string;
+  paymentMethod!: string;
+  totalPrice!: number;
+  saleDate!: Date;
+  isDiscount!: boolean;
 }
